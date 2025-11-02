@@ -9,14 +9,17 @@
 ## Last Update : 02-11-2025
 ##---------------------------------------
 
-##---------------------------------------------------
-## Set up path for working directory and the  dataset  
-##---------------------------------------------------
+##------------------------------------------------------------------------
+## Set up path for working directory and the  dataset useful information 
+##------------------------------------------------------------------------
 
 #Define the path to our working directory
 WORKING_DIR=/data/users/mmeka/RNAseq_project/
 
 #Define the path to our dataset directory
 DATASET_DIR=/data/courses/rnaseq_course/toxoplasma_de/reads_Lung/
+
+#Define the list of sample id  
+SAMPLE_ID_LIST=$(ls $DATASET_DIR/*.fastq.gz | cut -d"/" -f8 | cut -d_ -f 1 | sort | uniq)
 
 
