@@ -10,7 +10,7 @@
 ##---------------------------------------
 
 ##------------------------------------------------------------------------
-## Set up path for working directory and the  dataset useful information 
+## Set up path for working directory and the dataset useful information 
 ##------------------------------------------------------------------------
 
 #Define the path to our working directory
