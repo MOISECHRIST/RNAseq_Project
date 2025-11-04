@@ -4,7 +4,8 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
-#                this project and import all the useful modules needed for it.
+##                this project and import all the useful modules needed for it.
+## Creation date : 02-11-2025
 ## Last Update : 04-11-2025
 ##------------------------------------------------------------------------
 

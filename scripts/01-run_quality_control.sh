@@ -4,6 +4,7 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the quality control for each sample 
+## Creation date : 03-11-2025
 ## Last Update : 04-11-2025
 ##------------------------------------------------------------------------
 
@@ -19,6 +20,7 @@
 #SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.err
 #SBATCH --array=0-14
 
+THREADS=$SLURM_CPUS_PER_TASK
 
 #Loading the config file
 source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
@@ -27,7 +29,7 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 mkdir -p "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/fastqc"
 
 #Run fastqc for my
-fastqc "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_1.fastq.gz" \
+fastqc -t $THREADS  "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_1.fastq.gz" \
     "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_2.fastq.gz" \
     -o "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/fastqc"
 
