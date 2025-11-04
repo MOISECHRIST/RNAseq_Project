@@ -4,7 +4,7 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will aggregate FASTQC quality control for all samples 
-## Last Update : 03-11-2025
+## Last Update : 04-11-2025
 ##------------------------------------------------------------------------
 
 
@@ -19,7 +19,7 @@
 #SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.err
 
 #Loading the config file
-./00-config.sh
+source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 
 #First, create an output folder quality control summary
 mkdir -p "${RESULTS_DIR}/summary/quality_control"

@@ -15,5 +15,11 @@
 #FastQC
 sbatch scripts/01-run_quality_control.sh 
 
+#Check if FastQC was successful 
+if [ $? -ne 0 ]; then
+    echo "FastQC Quality Control failed."
+    exit 1
+fi
+
 #MultiQC for the First QC
 sbatch scripts/02-run_multiqc_first_qc.sh

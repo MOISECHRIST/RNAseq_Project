@@ -4,7 +4,7 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the quality control for each sample 
-## Last Update : 03-11-2025
+## Last Update : 04-11-2025
 ##------------------------------------------------------------------------
 
 
@@ -21,7 +21,7 @@
 
 
 #Loading the config file
-./00-config.sh
+source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 
 #First, create an output folder for the analyzed sample 
 mkdir -p "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/fastqc"
