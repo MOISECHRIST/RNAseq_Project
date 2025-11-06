@@ -74,6 +74,3 @@ mkdir -p "$OUTPUT_LOG" "$ERROR_LOG"
 #Loading modules for quality control step
 module add FastQC/0.11.9-Java-11
 module add MultiQC/1.11-foss-2021a 
-
-#Loading module for fastq file processing and cleaning 
-module load fastp/0.23.4-GCC-10.3.0
