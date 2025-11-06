@@ -6,7 +6,7 @@
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
 ##                this project and import all the useful modules needed for it.
 ## Creation date : 02-11-2025
-## Last Update : 04-11-2025
+## Last Update : 06-11-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -40,7 +40,7 @@ fi
 #Check if there is a link to the dataset containing fastq files
 DATASET_DIR="$DATA_DIR"/dataset
 if [ ! -d "$DATASET_DIR" ]; then 
-    ls -s /data/courses/rnaseq_course/toxoplasma_de/reads_Lung "$DATASET_DIR"
+    ln -s /data/courses/rnaseq_course/toxoplasma_de/reads_Lung "$DATASET_DIR"
 fi
 
 #Define the list of sample id  
@@ -75,4 +75,5 @@ mkdir -p "$OUTPUT_LOG" "$ERROR_LOG"
 module add FastQC/0.11.9-Java-11
 module add MultiQC/1.11-foss-2021a 
 
-
+#Loading module for fastq file processing and cleaning 
+module load fastp/0.23.4-GCC-10.3.0
