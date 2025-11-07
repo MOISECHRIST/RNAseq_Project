@@ -4,7 +4,7 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will aggregate FASTQC quality control for all samples 
-## Creation date : 03-04-2025
+## Creation date : 03-11-2025
 ## Last Update : 04-11-2025
 ##------------------------------------------------------------------------
 

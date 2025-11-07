@@ -13,9 +13,9 @@
 #SBATCH --mail-user=moise.meka@students.unibe.ch
 #SBATCH --mail-type=start,end,fail
 #SBATCH --job-name="hisat2_index"
-#SBATCH --mem=25GB
+#SBATCH --mem-per-cpu=5GB
 #SBATCH --cpus-per-task=10
-#SBATCH --time=10:00:00
+#SBATCH --time=20:00:00
 #SBATCH --error=/data/users/mmeka/RNAseq_project/.log/errors/%x_%j.err
 #SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.out
 
@@ -27,5 +27,12 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 #Go to REFSEQ Directory 
 cd "${REFSEQ_DIR}"
 
+#First extract splice sites and exon regions 
+hisat2_extract_splice_sites.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.ss"
+
+hisat2_extract_exons.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.exon"
+
+
 #Perform the HISAT2 Indexing of our reference (fasta file)
-hisat2-build -p $THREADS "${REFSEQ_NAME}.fa.gz" "${REFSEQ_NAME}"
+hisat2-build -p $THREADS --ss "${REFSEQ_NAME}.ss" --exon "${REFSEQ_NAME}.exon" \
+ "${REFSEQ_NAME}.fa" "${REFSEQ_NAME}.idx"

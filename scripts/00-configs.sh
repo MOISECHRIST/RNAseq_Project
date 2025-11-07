@@ -54,19 +54,19 @@ REFSEQ_DIR="$DATA_DIR"/refseq
 REFSEQ_NAME="Mus_musculus.GRCm39.115"
 
 #Check if there is refseq fasta file 
-if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.fa.gz" ]; then 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.fa" ]; then 
     echo "Please provide the refseq (fasta file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.fa.gz"
     exit 1
 fi
 
 #Check if there is refseq gtf file 
-if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gtf.gz" ]; then 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gtf" ]; then 
     echo "Please provide the refseq (gtf file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gtf.gz"
     exit 1
 fi
 
 #Check if there is refseq gff3 file 
-if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gff3.gz" ]; then 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gff3" ]; then 
     echo "Please provide the refseq (gff3 file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gff3.gz"
     exit 1
 fi
