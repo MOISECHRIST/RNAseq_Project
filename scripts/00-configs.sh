@@ -100,3 +100,6 @@ module add MultiQC/1.11-foss-2021a
 #Loading modules for mapping to reference 
 module load Python/3.9.5-GCCcore-10.3.0
 module add HISAT2/2.2.1-gompi-2021a
+
+#Loading module to manipulate SAM files
+module load SAMtools/1.13-GCC-10.3.0

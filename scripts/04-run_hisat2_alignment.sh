@@ -3,7 +3,7 @@
 ##------------------------------------------------------------------------
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
-## Description : This bash script I will run the quality control for each sample 
+## Description : This bash script I will run the sample alignment with HISAT2
 ## Creation date : 07-11-2025
 ## Last Update : 07-11-2025
 ##------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --time=20:00:00
 #SBATCH --error=/data/users/mmeka/RNAseq_project/.log/errors/%x_%j.err
-#SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.err
+#SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.out
 #SBATCH --array=0-14
 
 THREADS=$SLURM_CPUS_PER_TASK

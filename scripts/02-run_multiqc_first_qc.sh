@@ -17,7 +17,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
 #SBATCH --error=/data/users/mmeka/RNAseq_project/.log/errors/%x_%j.err
-#SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.err
+#SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.out
 
 #Loading the config file
 source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
