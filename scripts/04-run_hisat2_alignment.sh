@@ -13,8 +13,8 @@
 #SBATCH --mail-user=moise.meka@students.unibe.ch
 #SBATCH --mail-type=start,end,fail
 #SBATCH --job-name="hisat2_alignment"
-#SBATCH --mem-per-cpu=5GB
-#SBATCH --cpus-per-task=10
+#SBATCH --mem=150GB
+#SBATCH --cpus-per-task=16
 #SBATCH --time=20:00:00
 #SBATCH --error=/data/users/mmeka/RNAseq_project/.log/errors/%x_%j.err
 #SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.err
