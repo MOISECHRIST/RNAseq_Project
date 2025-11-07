@@ -20,14 +20,12 @@ WORKING_DIR=/data/users/mmeka/RNAseq_project
 ## Set up path for all scripts
 ##------------------------------------------------------------------------
 
-mkdir -p "${WORKING_DIR}/scripts"
-
 if [[ ":$PATH:" != *":${WORKING_DIR}/scripts:"* ]]; then
   export PATH="${WORKING_DIR}/scripts:$PATH"
 fi
 
 ##------------------------------------------------------------------------
-## Set up path and variables for our dataset and metadata
+## Set up path and variables for our dataset (fastq and refseq files) and metadata
 ##------------------------------------------------------------------------
 
 #Define the path to our data directory
@@ -50,27 +48,26 @@ SAMPLE_ID_LIST=($(ls $DATASET_DIR/*.fastq.gz | cut -d"/" -f8 | cut -d_ -f 1 | so
 METADATA_FILE=${DATA_DIR}/metadata.csv
 
 #Define path to reference fasta, gtf and gff3 files 
-REFSEQ_FASTA="$DATA_DIR"/refseq/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
+REFSEQ_DIR="$DATA_DIR"/refseq
 
-#Check if there is REFSEQ_FASTA file 
-if [ ! -f "$REFSEQ_FASTA" ]; then 
-    echo "Please provide the refseq (fasta file) in this path :: $REFSEQ_FASTA"
+#Define variable with reference sequence name
+REFSEQ_NAME="Mus_musculus.GRCm39.115"
+
+#Check if there is refseq fasta file 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.fa.gz" ]; then 
+    echo "Please provide the refseq (fasta file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.fa.gz"
     exit 1
 fi
 
-REFSEQ_GTF="$DATA_DIR"/refseq/Mus_musculus.GRCm39.115.gtf.gz
-
-#Check if there is REFSEQ_FASTA file 
-if [ ! -f "$REFSEQ_GTF" ]; then 
-    echo "Please provide the refseq (gtf file) in this path :: $REFSEQ_GTF"
+#Check if there is refseq gtf file 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gtf.gz" ]; then 
+    echo "Please provide the refseq (gtf file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gtf.gz"
     exit 1
 fi
 
-REFSEQ_GFF3="$DATA_DIR"/refseq/Mus_musculus.GRCm39.115.gff3.gz
-
-#Check if there is REFSEQ_FASTA file 
-if [ ! -f "$REFSEQ_GFF3" ]; then 
-    echo "Please provide the refseq (gff3 file) in this path :: $REFSEQ_GFF3"
+#Check if there is refseq gff3 file 
+if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gff3.gz" ]; then 
+    echo "Please provide the refseq (gff3 file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gff3.gz"
     exit 1
 fi
 
@@ -99,3 +96,7 @@ mkdir -p "$OUTPUT_LOG" "$ERROR_LOG"
 #Loading modules for quality control step
 module add FastQC/0.11.9-Java-11
 module add MultiQC/1.11-foss-2021a 
+
+#Loading modules for mapping to reference 
+module load Python/3.9.5-GCCcore-10.3.0
+module add HISAT2/2.2.1-gompi-2021a
