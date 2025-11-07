@@ -29,10 +29,10 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 mkdir -p "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2"
 
 #Move to the sample result folder
-cd  
+cd  "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/"
 
 #Ling refseq in this file
-ln -s "${REFSEQ_DIR}/${REFSEQ_NAME}.*" "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/."
+ln -s "${REFSEQ_DIR}/${REFSEQ_NAME}.*" .
 
 #Run HISAT2 alignment task 
 hisat2 -p $THREADS --dta \
