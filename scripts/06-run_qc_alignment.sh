@@ -5,14 +5,14 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run QC of our alignment
 ## Creation date : 07-11-2025
-## Last Update : 07-11-2025
+## Last Update : 08-11-2025
 ##------------------------------------------------------------------------
 
 
 #SBATCH --partition=pibu_el8
 #SBATCH --mail-user=moise.meka@students.unibe.ch
 #SBATCH --mail-type=start,end,fail
-#SBATCH --job-name="sam_processing"
+#SBATCH --job-name="bam_qc"
 #SBATCH --mem=150GB
 #SBATCH --cpus-per-task=16
 #SBATCH --time=20:00:00
@@ -29,7 +29,11 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 cd  "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/"
 
 
-#QC of alignment 
+#QC of alignment : General stats
 samtools stats -r "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${REFSEQ_NAME}.fa" \
     "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam" > \
     "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam.stat"
+
+#QC of alignment : Coverage and Depth
+samtools coverage "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam" > \
+"${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam.cov"
