@@ -16,6 +16,6 @@
 sbatch scripts/01-run_quality_control.sh 
 
 #MultiQC for the First QC
-sbatch scripts/02-run_multiqc_first_qc.sh
+sbatch scripts/02-run_multiqc_merge_qc.sh
 
 
