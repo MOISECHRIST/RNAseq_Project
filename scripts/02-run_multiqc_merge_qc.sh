@@ -5,14 +5,14 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script will run overall QC 
 ## Creation date : 03-11-2025
-## Last Update : 07-11-2025
+## Last Update : 08-11-2025
 ##------------------------------------------------------------------------
 
 
 #SBATCH --partition=pibu_el8
 #SBATCH --mail-user=moise.meka@students.unibe.ch
 #SBATCH --mail-type=start,end,fail
-#SBATCH --job-name="multiqc1"
+#SBATCH --job-name="multiqc"
 #SBATCH --mem-per-cpu=500MB
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
