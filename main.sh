@@ -4,6 +4,7 @@
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the whole Bulk RNAseq analysis for all samples 
+## Creation date : 02-11-2025
 ## Last Update : 08-11-2025
 ##------------------------------------------------------------------------
 
