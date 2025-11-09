@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will convert SAM files into BAM files, sort and index the BAM files
 ## Creation date : 07-11-2025
-## Last Update : 08-11-2025
+## Last Update : 09-11-2025
 ##------------------------------------------------------------------------
 
 
@@ -41,7 +41,7 @@ samtools sort -@ $THREADS -o "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK
     "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.bam"
 
 #index bam
-samtools index -@ "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam" 
+samtools index -@ $THREADS "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}.sorted.bam" 
 
 #Remove intermediate files
 
