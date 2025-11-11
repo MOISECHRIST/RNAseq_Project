@@ -51,6 +51,7 @@ echo "Launched Job : multiqc ($multiqc_job_id)"
 
 #RSUBREAD : Running feature counts using featureCounts function
 feature_count_job_id=$(sbatch --dependency="afterok:$sam_processing_job_id" scripts/08-run_featurecounts_all_samples.sh | awk '{ print $4 }')
+echo "Launched Job : feature_count ($feature_count_job_id)"
 
 ##------------------------------------------------------------------------
 ## Step 5 : Run Differentially expressed genes
