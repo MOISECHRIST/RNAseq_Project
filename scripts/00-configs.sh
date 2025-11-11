@@ -6,7 +6,7 @@
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
 ##                this project and import all the useful modules needed for it.
 ## Creation date : 02-11-2025
-## Last Update : 07-11-2025
+## Last Update : 11-11-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -103,3 +103,4 @@ module add HISAT2/2.2.1-gompi-2021a
 
 #Loading module to manipulate SAM files
 module load SAMtools/1.13-GCC-10.3.0
+PATH_TO_R_CONTAINER=/containers/apptainer/R_4.5.1_dtu.sif
