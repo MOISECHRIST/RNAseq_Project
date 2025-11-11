@@ -50,7 +50,7 @@ if((sum(check_ext)!=3) && (sum(check_exist)!=2)){
   print("   (1) Path to the BAM file")
   print("   (2) Path to the GTF file")
   print("   (3) Path to the output CSV file", sep="\n")
-  stop("Error: Required arguments are not provided.", call.=FALSE)
+  stop("Error: Files provided do not exist", call.=FALSE)
 }
 
 #store the parameters values

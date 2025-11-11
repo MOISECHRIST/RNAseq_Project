@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the whole Bulk RNAseq analysis for all samples 
 ## Creation date : 02-11-2025
-## Last Update : 08-11-2025
+## Last Update : 11-11-2025
 ##------------------------------------------------------------------------
 
 
@@ -51,3 +51,8 @@ echo "Launched Job : multiqc ($multiqc_job_id)"
 
 #RSUBREAD : Running feature counts using featureCounts function
 feature_count_job_id=$(sbatch --dependency="afterok:$sam_processing_job_id" scripts/08-run_featurecounts_all_samples.sh | awk '{ print $4 }')
+
+##------------------------------------------------------------------------
+## Step 5 : Run Differentially expressed genes
+##------------------------------------------------------------------------
+
