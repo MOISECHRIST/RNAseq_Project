@@ -3,49 +3,66 @@
 ##------------------------------------------------------------------------
 ## Author : MEKA Moise
 ## Email : moise.meka@students.unibe.ch
-## Description : In this file I will run feature counts for one bam file
+## Description : In this file I will run feature counts for one bam file.
+##              This script takes the following parameters:
+##                  (1) Path to the BAM file
+##                  (2) Path to the GTF file
+##                  (3) Path to the output CSV file
 ## Creation date : 11-11-2025
 ## Last Update : 11-11-2025
 ##------------------------------------------------------------------------
 
-#Install required packages
-if (!require("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
-}
-
-BiocManager::install("Rsubread",ask = F)
-
-install.packages("optparse")
-
-#Load package for optional argument parse 
-library("optparse")
-
 #Load package for feature count 
 library("Rsubread")
 
+args <- commandArgs(trailingOnly=TRUE)
 
-#Define parameters 
-parser <- OptionParser(description = "Compute the feature count for alignment file (BAM).")
+#Check whether the number of parameters is 3 
+if(length(args)!=3){
+  print("In this file I will run feature counts for one bam file.")
+  print("This script takes the following parameters:")
+  print("   (1) Path to the BAM file")
+  print("   (2) Path to the GTF file")
+  print("   (3) Path to the output CSV file", sep="\n")
+  stop("Error: Required arguments are not provided.", call.=FALSE)
+} 
 
-parser <- add_option(parser, "--annotation", type="character",
-                help="Path to the gtf annotation file")
+#fonction to check the file extension
+check_file_extension <- function(file_path, extension){
+  file_name <- basename(file_path)
+  file_name_vect <- strsplit(file_name, "\\.")[[1]]
+  l <- length(file_name_vect)
 
-parser <- add_option(parser,  "--input", type="character",
-                help="Path to the BAM file")
+  return(file_name_vect[l]==extension)
+}
 
-parser <- add_option(parser,  "--output", type="character",
-                help="Path for the output feature counts")
+#Check whether the files passed as parameters exist and have the correct extensions
+check_ext <- c(check_file_extension(args[1],"bam"),
+              check_file_extension(args[2],"gtf"),
+              check_file_extension(args[3],"csv"))
 
-opt <- parse_args(parser)
+check_exist <- c(file.exists(args[1]),
+                file.exists(args[2]))
 
-annotation_gtf <- opt$annotation
+if((sum(check_ext)!=3) && (sum(check_exist)!=2)){
+  print("In this file I will run feature counts for one bam file.")
+  print("This script takes the following parameters:")
+  print("   (1) Path to the BAM file")
+  print("   (2) Path to the GTF file")
+  print("   (3) Path to the output CSV file", sep="\n")
+  stop("Error: Required arguments are not provided.", call.=FALSE)
+}
 
-bam_file_path <- opt$input
+#store the parameters values
+bam_file_path <- args[1]
 
-counts_output_path <- opt$output
+annotation_gtf <- args[2]
 
-#Run feature counts
-fc_PE<-featureCounts(bam_file_path,annot.ext=annotation_gtf,isPairedEnd=TRUE)
+counts_output_path <- args[3]
+
+#Run the feature counts
+fc_PE<-featureCounts(bam_file_path,annot.ext=annotation_gtf,
+isGTFAnnotationFile = TRUE, isPairedEnd=TRUE)
 
 #Save the feature counts 
 write.csv(fc_PE$counts,counts_output_path)

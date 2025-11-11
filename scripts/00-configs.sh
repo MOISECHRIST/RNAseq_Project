@@ -103,4 +103,21 @@ module add HISAT2/2.2.1-gompi-2021a
 
 #Loading module to manipulate SAM files
 module load SAMtools/1.13-GCC-10.3.0
-PATH_TO_R_CONTAINER=/containers/apptainer/R_4.5.1_dtu.sif
+
+##------------------------------------------------------------------------
+## Set up the path for containers
+##------------------------------------------------------------------------
+
+PATH_CONTAINER_DIR="$WORKING_DIR"/container
+
+if [ ! -d "$PATH_CONTAINER_DIR" ]; then 
+    mkdir $PATH_CONTAINER_DIR
+fi
+
+#Pull required images 
+RSUBREAD_IMG=bioconductor-rsubread_2.20.0--r44h15a9599_1
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${RSUBREAD_IMG}.sif" ]; then 
+    cd $PATH_CONTAINER_DIR
+    apptainer pull docker://quay.io/biocontainers/${RSUBREAD_IMG} 
+fi
