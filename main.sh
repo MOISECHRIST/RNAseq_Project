@@ -44,3 +44,10 @@ echo "Launched Job : bam_qc ($bam_qc_job_id)"
 #MULTIQC : merge all QC report
 multiqc_job_id=$(sbatch --dependency=singleton sbatch scripts/02-run_multiqc_merge_qc.sh | awk '{ print $4 }')
 echo "Launched Job : multiqc ($multiqc_job_id)"
+
+##------------------------------------------------------------------------
+## Step 4 : Run feature counts for each sample
+##------------------------------------------------------------------------
+
+#RSUBREAD : Running feature counts using featureCounts function
+feature_count_job_id=$(sbatch --dependency="afterok:$sam_processing_job_id" scripts/08-run_featurecounts_all_samples.sh | awk '{ print $4 }')
