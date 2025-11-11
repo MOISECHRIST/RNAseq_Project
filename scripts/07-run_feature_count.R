@@ -64,5 +64,20 @@ counts_output_path <- args[3]
 fc_PE<-featureCounts(bam_file_path,annot.ext=annotation_gtf,
 isGTFAnnotationFile = TRUE, isPairedEnd=TRUE)
 
+#Clean the count table
+counts_df <- as.data.frame(fc_PE$counts)
+
+sample_id <- strsplit(colnames(counts_df)[1],"\\.")[[1]][1]
+
+counts_df$sample_id <- rep(sample_id, nrow(counts_df))
+
+colnames(counts_df) <- c("counts","sample_id")
+
+counts_df$gene_id <- row.names(counts_df)
+
+counts_df <- counts_df[,c(3,2,1)]
+
+print(head(counts_df))
+
 #Save the feature counts 
-write.csv(fc_PE$counts,counts_output_path)
+write.csv(counts_df, counts_output_path, row.names = F)

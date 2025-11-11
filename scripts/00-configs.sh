@@ -119,5 +119,12 @@ RSUBREAD_IMG=bioconductor-rsubread_2.20.0--r44h15a9599_1
 
 if [ ! -f "${PATH_CONTAINER_DIR}/${RSUBREAD_IMG}.sif" ]; then 
     cd $PATH_CONTAINER_DIR
-    apptainer pull docker://quay.io/biocontainers/${RSUBREAD_IMG} 
+    apptainer pull docker://quay.io/biocontainers/bioconductor-rsubread:2.20.0--r44h15a9599_1
+fi
+
+DESEQ2_IMG=bioconductor-deseq2_1.46.0--r44he5774e6_1
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${DESEQ2_IMG}.sif" ]; then
+    cd $PATH_CONTAINER_DIR
+    apptainer pull docker://quay.io/biocontainers/bioconductor-deseq2:1.46.0--r44he5774e6_1
 fi
