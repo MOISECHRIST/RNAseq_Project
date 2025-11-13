@@ -9,7 +9,7 @@
 ##                  (2) Path to the GTF file
 ##                  (3) Path to the output CSV file
 ## Creation date : 11-11-2025
-## Last Update : 11-11-2025
+## Last Update : 12-11-2025
 ##------------------------------------------------------------------------
 
 #Load package for feature count 
@@ -23,7 +23,7 @@ if(length(args)!=3){
   print("This script takes the following parameters:")
   print("   (1) Path to the BAM file")
   print("   (2) Path to the GTF file")
-  print("   (3) Path to the output CSV file", sep="\n")
+  print("   (3) Path to the output CSV file")
   stop("Error: Required arguments are not provided.", call.=FALSE)
 } 
 
@@ -49,8 +49,8 @@ if((sum(check_ext)!=3) && (sum(check_exist)!=2)){
   print("This script takes the following parameters:")
   print("   (1) Path to the BAM file")
   print("   (2) Path to the GTF file")
-  print("   (3) Path to the output CSV file", sep="\n")
-  stop("Error: Files provided do not exist", call.=FALSE)
+  print("   (3) Path to the output CSV file")
+  stop("Error: Files provided do not exist or files extension provided are not correct.", call.=FALSE)
 }
 
 #store the parameters values
@@ -69,15 +69,9 @@ counts_df <- as.data.frame(fc_PE$counts)
 
 sample_id <- strsplit(colnames(counts_df)[1],"\\.")[[1]][1]
 
-counts_df$sample_id <- rep(sample_id, nrow(counts_df))
-
-colnames(counts_df) <- c("counts","sample_id")
-
-counts_df$gene_id <- row.names(counts_df)
-
-counts_df <- counts_df[,c(3,2,1)]
+colnames(counts_df) <- c(sample_id)
 
 print(head(counts_df))
 
 #Save the feature counts 
-write.csv(counts_df, counts_output_path, row.names = F)
+write.csv(counts_df, counts_output_path, row.names = T)

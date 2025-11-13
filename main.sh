@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the whole Bulk RNAseq analysis for all samples 
 ## Creation date : 02-11-2025
-## Last Update : 11-11-2025
+## Last Update : 13-11-2025
 ##------------------------------------------------------------------------
 
 
@@ -57,3 +57,6 @@ echo "Launched Job : feature_count ($feature_count_job_id)"
 ## Step 5 : Run Differentially expressed genes
 ##------------------------------------------------------------------------
 
+#DESEQ2 : Combine all Feature Counts results and run Differential Expression
+run_DE_job_id=$(sbatch --dependency="afterok:$feature_count_job_id" scripts/10-run_diff_expression.sh | awk '{ print $4 }')
+echo "Launched Job : run_DE ($run_DE_job_id)"

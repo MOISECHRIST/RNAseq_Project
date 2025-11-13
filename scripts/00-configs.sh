@@ -6,7 +6,7 @@
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
 ##                this project and import all the useful modules needed for it.
 ## Creation date : 02-11-2025
-## Last Update : 11-11-2025
+## Last Update : 12-11-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -55,20 +55,24 @@ REFSEQ_NAME="Mus_musculus.GRCm39.115"
 
 #Check if there is refseq fasta file 
 if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.fa" ]; then 
-    echo "Please provide the refseq (fasta file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.fa.gz"
-    exit 1
+    cd "${REFSEQ_DIR}"
+    wget https://ftp.ensembl.org/pub/release-115/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz 
+    gunzip Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
+    mv Mus_musculus.GRCm39.dna.primary_assembly.fa "${REFSEQ_NAME}.fa"
 fi
 
 #Check if there is refseq gtf file 
 if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gtf" ]; then 
-    echo "Please provide the refseq (gtf file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gtf.gz"
-    exit 1
+    cd "${REFSEQ_DIR}"
+    wget https://ftp.ensembl.org/pub/release-115/gtf/mus_musculus/Mus_musculus.GRCm39.115.gtf.gz 
+    gunzip Mus_musculus.GRCm39.115.gtf.gz 
 fi
 
 #Check if there is refseq gff3 file 
 if [ ! -f "${REFSEQ_DIR}/${REFSEQ_NAME}.gff3" ]; then 
-    echo "Please provide the refseq (gff3 file) with this path :: ${REFSEQ_DIR}/${REFSEQ_NAME}.gff3.gz"
-    exit 1
+    cd "${REFSEQ_DIR}"
+    wget https://ftp.ensembl.org/pub/release-115/gff3/mus_musculus/Mus_musculus.GRCm39.115.gff3.gz 
+    gunzip Mus_musculus.GRCm39.115.gff3.gz
 fi
 
 ##------------------------------------------------------------------------
