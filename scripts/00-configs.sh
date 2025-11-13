@@ -103,14 +103,19 @@ if [ ! -d "$PATH_CONTAINER_DIR" ]; then
     mkdir $PATH_CONTAINER_DIR
 fi
 
-#Copy images from /containers/apptainer
+#Create symbolics link for images from /containers/apptainer
 IBU_CONTAINER_DIR=/containers/apptainer
-
-ln -s "${IBU_CONTAINER_DIR}/fastqc-0.12.1.sif" "${PATH_CONTAINER_DIR}/fastqc-0.12.1.sif"
-ln -s "${IBU_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif" "${PATH_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif"
 
 FASTQC_IMG=fastqc-0.12.1
 HISAT2_SAMTOOLS_IMG=hisat2_samtools_408dfd02f175cd88
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${FASTQC_IMG}.sif" ]
+    ln -s "${IBU_CONTAINER_DIR}/fastqc-0.12.1.sif" "${PATH_CONTAINER_DIR}/fastqc-0.12.1.sif"
+fi
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" ]
+    ln -s "${IBU_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif" "${PATH_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif"
+fi
 
 #Pull required images 
 MULTIQC_IMG=multiqc_1.32--pyhdfd78af_1
