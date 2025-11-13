@@ -61,7 +61,7 @@ results_dir_path <- args[3]
 count_df <- read.csv(input_featurecount_path, header = T, sep = ",", row.names=1)
 
 metadata <- read.csv(metadata_path, sep = ",", header = T, row.names=1)
-metadata$batch <- factor(metadata$batch, levels = c("Wildtype", "Double-Knockout"))
+metadata$batch <- factor(metadata$batch, levels = c("Wildtype", "Double_Knockout"))
 metadata$condition <- factor(metadata$condition, levels = c("Control", "Case"))
 
 #Check if all samples in the metadata file are present in our cts_df
@@ -75,6 +75,11 @@ count_df <- count_df[, rownames(metadata)]
 dds <- DESeqDataSetFromMatrix(countData = count_df,
                               colData = metadata,
                               design = ~ batch + condition + batch:condition)
+                  
+
+dds <- DESeq(dds)
+
+print(resultsNames(dds))
 
 save(dds, file=paste(results_dir_path,"differential_expression_model.RData", sep = "/"))
 
