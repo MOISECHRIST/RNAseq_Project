@@ -35,7 +35,7 @@ cd  "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/"
 ln -s ${REFSEQ_DIR}/${REFSEQ_NAME}.* .
 
 #Run HISAT2 alignment task 
-hisat2 -p $THREADS --dta \
+apptainer exec "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" hisat2 -p $THREADS --dta \
     -x "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2/${REFSEQ_NAME}.idx" \
     -1 "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_1.fastq.gz" \
     -2 "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_2.fastq.gz" \

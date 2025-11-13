@@ -26,4 +26,4 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 mkdir -p "${RESULTS_DIR}/summary/quality_control"
 
 #Run multiqc 
-multiqc "${RESULTS_DIR}/." -o "${RESULTS_DIR}/summary/quality_control"
+apptainer exec "${PATH_CONTAINER_DIR}/${MULTIQC_IMG}.sif" multiqc "${RESULTS_DIR}/." -o "${RESULTS_DIR}/summary/quality_control"

@@ -29,7 +29,7 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 mkdir -p "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/fastqc"
 
 #Run fastqc for my
-fastqc -t $THREADS  "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_1.fastq.gz" \
+apptainer exec "${PATH_CONTAINER_DIR}/${FASTQC_IMG}.sif" fastqc -t $THREADS  "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_1.fastq.gz" \
     "${DATASET_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}_2.fastq.gz" \
     -o "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/fastqc"
 

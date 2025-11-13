@@ -28,11 +28,11 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 cd "${REFSEQ_DIR}"
 
 #First extract splice sites and exon regions 
-hisat2_extract_splice_sites.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.ss"
+apptainer exec "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" hisat2_extract_splice_sites.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.ss"
 
-hisat2_extract_exons.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.exon"
+apptainer exec "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" hisat2_extract_exons.py "${REFSEQ_NAME}.gtf" > "${REFSEQ_NAME}.exon"
 
 
 #Perform the HISAT2 Indexing of our reference (fasta file)
-hisat2-build -p $THREADS --ss "${REFSEQ_NAME}.ss" --exon "${REFSEQ_NAME}.exon" \
+apptainer exec "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" hisat2-build -p $THREADS --ss "${REFSEQ_NAME}.ss" --exon "${REFSEQ_NAME}.exon" \
  "${REFSEQ_NAME}.fa" "${REFSEQ_NAME}.idx"

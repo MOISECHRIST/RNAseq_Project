@@ -94,21 +94,6 @@ ERROR_LOG=${WORKING_DIR}/.log/errors
 mkdir -p "$OUTPUT_LOG" "$ERROR_LOG"
 
 ##------------------------------------------------------------------------
-## Loading modules for RNAseq analysis
-##------------------------------------------------------------------------
-
-#Loading modules for quality control step
-module add FastQC/0.11.9-Java-11
-module add MultiQC/1.11-foss-2021a 
-
-#Loading modules for mapping to reference 
-module load Python/3.9.5-GCCcore-10.3.0
-module add HISAT2/2.2.1-gompi-2021a
-
-#Loading module to manipulate SAM files
-module load SAMtools/1.13-GCC-10.3.0
-
-##------------------------------------------------------------------------
 ## Set up the path for containers
 ##------------------------------------------------------------------------
 
@@ -118,7 +103,23 @@ if [ ! -d "$PATH_CONTAINER_DIR" ]; then
     mkdir $PATH_CONTAINER_DIR
 fi
 
+#Copy images from /containers/apptainer
+IBU_CONTAINER_DIR=/containers/apptainer
+
+ln -s "${IBU_CONTAINER_DIR}/fastqc-0.12.1.sif" "${PATH_CONTAINER_DIR}/fastqc-0.12.1.sif"
+ln -s "${IBU_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif" "${PATH_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif"
+
+FASTQC_IMG=fastqc-0.12.1
+HISAT2_SAMTOOLS_IMG=hisat2_samtools_408dfd02f175cd88
+
 #Pull required images 
+MULTIQC_IMG=multiqc_1.32--pyhdfd78af_1
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${MULTIQC_IMG}.sif" ]; then 
+    cd $PATH_CONTAINER_DIR
+    apptainer pull docker://quay.io/biocontainers/multiqc:1.32--pyhdfd78af_1
+fi
+
 RSUBREAD_IMG=bioconductor-rsubread_2.20.0--r44h15a9599_1
 
 if [ ! -f "${PATH_CONTAINER_DIR}/${RSUBREAD_IMG}.sif" ]; then 
