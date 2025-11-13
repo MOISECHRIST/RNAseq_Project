@@ -6,7 +6,7 @@
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
 ##                this project and import all the useful modules needed for it.
 ## Creation date : 02-11-2025
-## Last Update : 12-11-2025
+## Last Update : 13-11-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -131,4 +131,12 @@ DESEQ2_IMG=bioconductor-deseq2_1.46.0--r44he5774e6_1
 if [ ! -f "${PATH_CONTAINER_DIR}/${DESEQ2_IMG}.sif" ]; then
     cd $PATH_CONTAINER_DIR
     apptainer pull docker://quay.io/biocontainers/bioconductor-deseq2:1.46.0--r44he5774e6_1
+fi
+
+
+RTRACKLAYER_IMG=bioconductor-rtracklayer_1.66.0--r44h15a9599_1
+
+if [ ! -f "${PATH_CONTAINER_DIR}/${RTRACKLAYER_IMG}.sif" ]; then
+    cd $PATH_CONTAINER_DIR
+    apptainer pull docker://quay.io/biocontainers/bioconductor-rtracklayer:1.66.0--r44h15a9599_1
 fi

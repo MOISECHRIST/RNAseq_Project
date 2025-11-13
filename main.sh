@@ -60,3 +60,7 @@ echo "Launched Job : feature_count ($feature_count_job_id)"
 #DESEQ2 : Combine all Feature Counts results and run Differential Expression
 run_DE_job_id=$(sbatch --dependency="afterok:$feature_count_job_id" scripts/10-run_diff_expression.sh | awk '{ print $4 }')
 echo "Launched Job : run_DE ($run_DE_job_id)"
+
+#RTRACKLAYER : Extract from GTF file information about CHR, Gene_ID, Gene_Name, Start position, End position
+extract_gtf_info_job_id=$(sbatch --dependency="afterok:$run_DE_job_id" scripts/12-run_script_extract_gtf_info.sh | awk '{ print $4 }')
+echo "Launched Job : extract_gtf_info ($extract_gtf_info_job_id)"
