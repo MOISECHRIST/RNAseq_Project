@@ -42,7 +42,7 @@ echo "Launched Job : bam_qc ($bam_qc_job_id)"
 ##------------------------------------------------------------------------
 
 #MULTIQC : merge all QC report
-multiqc_job_id=$(sbatch --dependency=singleton sbatch scripts/02-run_multiqc_merge_qc.sh | awk '{ print $4 }')
+multiqc_job_id=$(sbatch --dependency="afterok:$bam_qc_job_id" scripts/02-run_multiqc_merge_qc.sh | awk '{ print $4 }')
 echo "Launched Job : multiqc ($multiqc_job_id)"
 
 ##------------------------------------------------------------------------

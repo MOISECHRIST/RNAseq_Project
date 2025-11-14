@@ -109,11 +109,11 @@ IBU_CONTAINER_DIR=/containers/apptainer
 FASTQC_IMG=fastqc-0.12.1
 HISAT2_SAMTOOLS_IMG=hisat2_samtools_408dfd02f175cd88
 
-if [ ! -f "${PATH_CONTAINER_DIR}/${FASTQC_IMG}.sif" ]
+if [ ! -f "${PATH_CONTAINER_DIR}/${FASTQC_IMG}.sif" ]; then
     ln -s "${IBU_CONTAINER_DIR}/fastqc-0.12.1.sif" "${PATH_CONTAINER_DIR}/fastqc-0.12.1.sif"
 fi
 
-if [ ! -f "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" ]
+if [ ! -f "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" ]; then
     ln -s "${IBU_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif" "${PATH_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif"
 fi
 
