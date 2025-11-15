@@ -18,62 +18,48 @@ I will add all important results as images for this project
 
 ```
 .
+├── main.sh
 ├── container
+|   └──[list of containers (.sif)]
 ├── data
 │   ├── dataset -> /data/courses/rnaseq_course/toxoplasma_de/reads_Lung
 │   └── refseq
+|       ├── Mus_musculus.GRCm39.115.exon
+|       ├── Mus_musculus.GRCm39.115.fa
+|       ├── Mus_musculus.GRCm39.115.gff3
+|       ├── Mus_musculus.GRCm39.115.gtf
+|       ├── Mus_musculus.GRCm39.115.idx.1.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.2.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.3.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.4.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.5.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.6.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.7.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.8.ht2
+|       └── Mus_musculus.GRCm39.115.ss
 ├── .log
 │   ├── errors
+|   |   └──[error logs (.err)]
 │   └── output
+|       └──[output logs (.out)]
 ├── results
-│   ├── SRR7821918
+│   ├── SRR78219*
 │   │   ├── fastqc
+|   |   |   └──[raw reads QC results]
 │   │   └── hisat2
-│   ├── SRR7821919
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821920
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821921
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821922
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821923
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821924
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821925
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821927
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821937
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821938
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821939
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821940
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821941
-│   │   ├── fastqc
-│   │   └── hisat2
-│   ├── SRR7821942
-│   │   ├── fastqc
-│   │   └── hisat2
+|   |      |──[alignment results]
+|   |      |──[alignment QC results]
+|   |      └──[featureCounts results]
 │   └── summary
 │       ├── DE_Analysis
+|       |   |──[featureCount Matrix]
+|       |   |──Mus_musculus.GRCm39.115.csv
+|       |   |──differential_expression_model.RData
+|       |   └──plots
 │       └── quality_control
-│           └── multiqc_data
+│           |── multiqc_data
+|           └──multiqc_report.html
 └── scripts
+    |── [R script]
+    └──[bash script]
 ```
