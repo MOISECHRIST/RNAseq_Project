@@ -23,6 +23,8 @@ I will add all important results as images for this project
 |   └──[list of containers (.sif)]
 ├── data
 │   ├── dataset -> /data/courses/rnaseq_course/toxoplasma_de/reads_Lung
+|       ├── README
+|       └── [Pairend reads (.fastq.gz)]
 │   └── refseq
 |       ├── Mus_musculus.GRCm39.115.exon
 |       ├── Mus_musculus.GRCm39.115.fa
