@@ -30,14 +30,7 @@ I will add all important results as images for this project
 |       ├── Mus_musculus.GRCm39.115.fa
 |       ├── Mus_musculus.GRCm39.115.gff3
 |       ├── Mus_musculus.GRCm39.115.gtf
-|       ├── Mus_musculus.GRCm39.115.idx.1.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.2.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.3.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.4.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.5.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.6.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.7.ht2
-|       ├── Mus_musculus.GRCm39.115.idx.8.ht2
+|       ├── Mus_musculus.GRCm39.115.idx.*.ht2
 |       └── Mus_musculus.GRCm39.115.ss
 ├── .log
 │   ├── errors
@@ -62,6 +55,6 @@ I will add all important results as images for this project
 │           |── multiqc_data
 |           └──multiqc_report.html
 └── scripts
-    |── [R script]
+    |──[R script]
     └──[bash script]
 ```
