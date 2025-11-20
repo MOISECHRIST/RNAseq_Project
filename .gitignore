@@ -2,3 +2,4 @@ container
 results
 data
 .log
+.DS_Store
