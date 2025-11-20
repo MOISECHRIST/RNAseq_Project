@@ -46,8 +46,10 @@ I will add all important results as images for this project
 |   |      |── [alignment QC results]
 |   |      └── [featureCounts results]
 │   └── summary
+|       ├── featureCounts
+|       |   └── [featureCount Results]
 │       ├── DE_Analysis
-|       |   |── [featureCount Matrix]
+|       |   |── [cleaned featureCount Matrix]
 |       |   |── Mus_musculus.GRCm39.115.csv
 |       |   |── differential_expression_model.RData
 |       |   └── plots

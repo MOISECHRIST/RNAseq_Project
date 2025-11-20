@@ -108,6 +108,7 @@ IBU_CONTAINER_DIR=/containers/apptainer
 
 FASTQC_IMG=fastqc-0.12.1
 HISAT2_SAMTOOLS_IMG=hisat2_samtools_408dfd02f175cd88
+RSUBREAD_IMG=subread_2.0.6
 
 if [ ! -f "${PATH_CONTAINER_DIR}/${FASTQC_IMG}.sif" ]; then
     ln -s "${IBU_CONTAINER_DIR}/fastqc-0.12.1.sif" "${PATH_CONTAINER_DIR}/fastqc-0.12.1.sif"
@@ -117,19 +118,16 @@ if [ ! -f "${PATH_CONTAINER_DIR}/${HISAT2_SAMTOOLS_IMG}.sif" ]; then
     ln -s "${IBU_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif" "${PATH_CONTAINER_DIR}/hisat2_samtools_408dfd02f175cd88.sif"
 fi
 
+if [ ! -f "${PATH_CONTAINER_DIR}/${RSUBREAD_IMG}.sif" ]; then
+    ln -s "${IBU_CONTAINER_DIR}/subread_2.0.6.sif" "${PATH_CONTAINER_DIR}/subread_2.0.6.sif"
+fi
+
 #Pull required images 
 MULTIQC_IMG=multiqc_1.32--pyhdfd78af_1
 
 if [ ! -f "${PATH_CONTAINER_DIR}/${MULTIQC_IMG}.sif" ]; then 
     cd $PATH_CONTAINER_DIR
     apptainer pull docker://quay.io/biocontainers/multiqc:1.32--pyhdfd78af_1
-fi
-
-RSUBREAD_IMG=bioconductor-rsubread_2.20.0--r44h15a9599_1
-
-if [ ! -f "${PATH_CONTAINER_DIR}/${RSUBREAD_IMG}.sif" ]; then 
-    cd $PATH_CONTAINER_DIR
-    apptainer pull docker://quay.io/biocontainers/bioconductor-rsubread:2.20.0--r44h15a9599_1
 fi
 
 DESEQ2_IMG=bioconductor-deseq2_1.46.0--r44he5774e6_1

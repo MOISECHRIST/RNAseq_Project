@@ -38,20 +38,21 @@ bam_qc_job_id=$(sbatch --dependency="afterok:$sam_processing_job_id" scripts/06-
 echo "Launched Job : bam_qc ($bam_qc_job_id)"
 
 ##------------------------------------------------------------------------
-## Step 3 : Merge all Quality Control step in one report
-##------------------------------------------------------------------------
-
-#MULTIQC : merge all QC report
-multiqc_job_id=$(sbatch --dependency="afterok:$bam_qc_job_id" scripts/02-run_multiqc_merge_qc.sh | awk '{ print $4 }')
-echo "Launched Job : multiqc ($multiqc_job_id)"
-
-##------------------------------------------------------------------------
-## Step 4 : Run feature counts for each sample
+## Step 3 : Run feature counts for each sample
 ##------------------------------------------------------------------------
 
 #RSUBREAD : Running feature counts using featureCounts function
 feature_count_job_id=$(sbatch --dependency="afterok:$sam_processing_job_id" scripts/08-run_featurecounts_all_samples.sh | awk '{ print $4 }')
 echo "Launched Job : feature_count ($feature_count_job_id)"
+
+##------------------------------------------------------------------------
+## Step 4 : Merge all Quality Control step in one report
+##------------------------------------------------------------------------
+
+#MULTIQC : merge all QC report
+multiqc_job_id=$(sbatch --dependency="afterok:$feature_count_job_id" scripts/02-run_multiqc_merge_qc.sh | awk '{ print $4 }')
+echo "Launched Job : multiqc ($multiqc_job_id)"
+
 
 ##------------------------------------------------------------------------
 ## Step 5 : Run Differentially expressed genes
