@@ -3,3 +3,5 @@ results
 data
 .log
 .DS_Store
+.RData
+.Rhistory
