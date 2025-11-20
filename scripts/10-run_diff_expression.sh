@@ -26,20 +26,14 @@ source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
 MERGED_FCOUNTS_DIR="${RESULTS_DIR}/summary/DE_Analysis"
 mkdir -p $MERGED_FCOUNTS_DIR
 
-#Combine all featureCounts files from all samples
-sample_id="${SAMPLE_ID_LIST[0]}"
-cat  "${RESULTS_DIR}/${sample_id}/hisat2/${sample_id}.featurecounts.csv" > "${MERGED_FCOUNTS_DIR}/featureCounts_all_samples.csv"
+#Clean featureCounts results
+tail -n+2 "${RESULTS_DIR}/summary/featureCounts/genes" | cut -f1,7- \
+ | head -n1 |sed 's/\/data\/users\/mmeka\/RNAseq_project\/results\/summary\/featureCounts\///g' \
+ | sed 's/.sorted.bam//g'  | tr "\t" "," > "${MERGED_FCOUNTS_DIR}/featureCounts_all_samples.csv" 
 
-for idx in `seq 1 14`; do 
-    sample_id="${SAMPLE_ID_LIST[${idx}]}"
-    join -t, -1 1 -2 1 "${MERGED_FCOUNTS_DIR}/featureCounts_all_samples.csv" "${RESULTS_DIR}/${sample_id}/hisat2/${sample_id}.featurecounts.csv" > \
-    "${MERGED_FCOUNTS_DIR}/tmp.csv"
+tail -n+3 "${RESULTS_DIR}/summary/featureCounts/genes" | cut -f1,7- | tr "\t" "," >> "${MERGED_FCOUNTS_DIR}/featureCounts_all_samples.csv"
 
-    cat "${MERGED_FCOUNTS_DIR}/tmp.csv" > "${MERGED_FCOUNTS_DIR}/featureCounts_all_samples.csv"
 
-done 
-
-rm "${MERGED_FCOUNTS_DIR}/tmp.csv"
 
 #Run Differential Expression for our samples 
 apptainer exec  "${PATH_CONTAINER_DIR}/${DESEQ2_IMG}.sif" \
