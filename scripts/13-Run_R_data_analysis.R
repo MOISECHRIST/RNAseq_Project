@@ -27,6 +27,8 @@ library("vsn")
 library("pheatmap")
 library(ggplot2)
 library(ggrepel)
+library(VennDiagram)
+
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
 ##------------------------------------------------------------------------
@@ -47,23 +49,16 @@ str(gene.detail)
 ## Variance-Stabilizing transformation 
 vsd <- vst(dds, blind=TRUE)
 
-## Regularized log transformation
-rld <- rlog(dds, blind=TRUE)
-
 
 pdf("results/summary/DE_Analysis/plots/vst_data_transformation.pdf")
 meanSdPlot(assay(vsd))
-dev.off()
-
-pdf("results/summary/DE_Analysis/plots/rlog_data_transformation.pdf")
-meanSdPlot(assay(rld))
 dev.off()
 
 
 # Data visualization 
 
 ## QC Check
-max_val <- 25
+max_val <- 50
 select <- order(rowMeans(counts(dds,normalized=TRUE)),
                 decreasing=TRUE)
 df <- as.data.frame(colData(dds)[,c("batch","condition")])
@@ -73,33 +68,170 @@ pheatmap(assay(vsd)[select[1:max_val],], cluster_rows=F, show_rownames=FALSE,
          cluster_cols=T, annotation_col=df)
 dev.off()
 
-pdf("results/summary/DE_Analysis/plots/rlog_qc_check.pdf")
-pheatmap(assay(rld)[select[1:max_val],], cluster_rows=FALSE, show_rownames=FALSE,
-         cluster_cols=T, annotation_col=df)
-dev.off()
-
 ## PCA 
 
 pdf("results/summary/DE_Analysis/plots/vst_plotPCA.pdf")
-pcaData <- plotPCA(vsd, intgroup=c("condition", "batch"), returnData=TRUE, ntop=length(select))
+
+pcaData <- plotPCA(vsd, intgroup=c("condition", "batch"), returnData=TRUE)
 percentVar <- round(100 * attr(pcaData, "percentVar"))
 ggplot(pcaData, aes(PC1, PC2, color=condition, shape=batch)) +
   geom_point(size=3) + geom_text_repel(aes(label=name), size = 2.5) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
   coord_fixed()
+
 dev.off()
 
 
-pdf("results/summary/DE_Analysis/plots/rlog_plotPCA.pdf")
-pcaData <- plotPCA(rl, intgroup=c("condition", "batch"), returnData=TRUE, ntop=length(select))
-percentVar <- round(100 * attr(pcaData, "percentVar"))
-ggplot(pcaData, aes(PC1, PC2, color=condition, shape=batch)) +
-  geom_point(size=3) + geom_text_repel(aes(label=name), size = 2.5) +
-  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
-  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
-  coord_fixed()
+##------------------------------------------------------------------------
+## Step 5 : Differential expression analysis 
+##------------------------------------------------------------------------
+
+## Based on the original publication, select 2-3 genes 
+## that are of particular interest and investigate their expression level
+gene_list <- c("Mx1", "Ifit1", "Tap1")
+gene_id <- gene.detail[gene.detail$gene_name %in% gene_list, ]$gene_id
+
+pdf("results/summary/DE_Analysis/plots/plotCounts_selected_genes.pdf")
+i <- 1
+par(mfrow = c(3,1))
+for(item in gene_id){
+  plotCounts(dds, gene = item, 
+             intgroup = c("batch", "condition"), 
+             main = paste0("Gene : ",gene_list[i]), 
+             normalized = T,
+             transform = T) 
+  i <- i+1
+}
 dev.off()
 
+# Contrast 1 : 
+# Answer to the question : Which genes respond to T. gondii infection in wild-type mice?
+res_WT_control_case <- results(dds, contrast = c("condition", "Case", "Control"))
+
+## Check the proportion of missing values (NA) in results
+100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
+
+## Filter of row with NA values
+res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
+
+## Check again the proportion of missing values (NA) in results
+100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
+
+## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
+WT_control_case_sign_level <- rownames(res_WT_control_case[res_WT_control_case$padj< 0.05,])
+
+## How many of the DE genes are up-regulated vs down-regulated?
+### up-regulated 
+WT_control_case_up_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange>0),])
+
+### down-regulated
+WT_control_case_down_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange<0),])
+
+## Based on the original publication, select 2-3 genes 
+## that are of particular interest and investigate their expression level
+res_WT_control_case[gene_id,]
+
+
+# Contrast 2 : 
+# Answer to the question : Which genes are different between DKO and WT in the absence of infection ?
+res_control_WT_DK <- results(dds, name = "batch_Double_Knockout_vs_Wildtype")
+
+## Check the proportion of missing values (NA) in results
+100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
+
+## Filter of row with NA values
+res_control_WT_DK <- res_control_WT_DK[!is.na(res_control_WT_DK$padj),]
+
+## Check again the proportion of missing values (NA) in results
+100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
+
+## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
+control_WT_DK_sign_level <- rownames(res_control_WT_DK[res_control_WT_DK$padj< 0.05,])
+
+## How many of the DE genes are up-regulated vs down-regulated?
+### up-regulated 
+control_WT_DK_up_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange>0),])
+
+### down-regulated
+control_WT_DK_down_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange<0),])
+
+## Based on the original publication, select 2-3 genes 
+## that are of particular interest and investigate their expression level
+res_control_WT_DK[gene_id,]
+
+# Contrast 3 : 
+# Answer to the question : Assessing the overall impact of T. goodii infection in Double Knockout mice 
+res_WT_control_DK_case <- results(dds,
+                                  contrast=list(c("batch_Double_Knockout_vs_Wildtype",
+                                    "batchDouble_Knockout.conditionCase",
+                                    "condition_Case_vs_Control")))
+
+## Check the proportion of missing values (NA) in results
+100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
+
+## Filter of row with NA values
+res_WT_control_DK_case <- res_WT_control_DK_case[!is.na(res_WT_control_DK_case$padj),]
+
+## Check again the proportion of missing values (NA) in results
+100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
+
+## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
+WT_control_DK_case_sign_level <- rownames(res_WT_control_DK_case[res_WT_control_DK_case$padj< 0.05,])
+
+## How many of the DE genes are up-regulated vs down-regulated?
+### up-regulated 
+WT_control_DK_case_up_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange>0),])
+
+### down-regulated
+WT_control_DK_case_down_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange<0),])
+
+## Based on the original publication, select 2-3 genes 
+## that are of particular interest and investigate their expression level
+res_WT_control_DK_case[gene_id,]
+
+# Contrast 4 :
+# Answer to the question : Which genes depend on ifnar and ifngr in the response to T. gondii infection ?
+res_case_WT_DK <- results(dds, contrast=list(c(
+    "batch_Double_Knockout_vs_Wildtype",
+    "batchDouble_Knockout.conditionCase")))
+
+## Check the proportion of missing values (NA) in results
+100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
+
+## Filter of row with NA values
+res_case_WT_DK <- res_case_WT_DK[!is.na(res_case_WT_DK$padj),]
+
+## Check again the proportion of missing values (NA) in results
+100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
+
+## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
+nrow(res_case_WT_DK[res_case_WT_DK$padj< 0.05,])
+
+## How many of the DE genes are up-regulated vs down-regulated?
+### up-regulated 
+case_WT_DK_up_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange>0),])
+
+### down-regulated
+case_WT_DK_down_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange<0),])
+
+## Based on the original publication, select 2-3 genes 
+## that are of particular interest and investigate their expression level
+res_case_WT_DK[gene_id,]
+
+
+## Make a table 
+regulated_genes <- data.frame(num_up=c(length(WT_control_case_up_reg_genes), 
+                                  length(control_WT_DK_up_reg_genes),
+                                  length(WT_control_DK_case_up_reg_genes),
+                                  length(case_WT_DK_up_reg_genes)),
+                  num_down=c(length(WT_control_case_down_reg_genes), 
+                                    length(control_WT_DK_down_reg_genes),
+                                    length(WT_control_DK_case_down_reg_genes),
+                                    length(case_WT_DK_down_reg_genes)),
+                  row.names = c("WT control vs case", "control WT vs DK", 
+                                "WT control vs DKO case", "case WT vs DKO"))
+regulated_genes$`padj > 5%` <- regulated_genes$num_up + regulated_genes$num_down
+print(regulated_genes)
 
 
