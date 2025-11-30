@@ -27,7 +27,7 @@ library("vsn")
 library("pheatmap")
 library(ggplot2)
 library(ggrepel)
-library(VennDiagram)
+library(cowplot)
 
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
@@ -105,6 +105,30 @@ for(item in gene_id){
 }
 dev.off()
 
+pdf("results/summary/DE_Analysis/plots/plotCounts_selected_genes_v2.pdf")
+norm_counts <- counts(dds, normalized=TRUE)
+select_plots <- list()
+i <- 1
+for(item in gene_id){
+  df <- data.frame(
+    counts = norm_counts[item, ],
+    sample = colnames(norm_counts),
+    condition = dds$condition,
+    group = dds$batch
+  )
+  
+  p <- ggplot(df, aes(x = condition, y = log2(counts+1))) +
+    geom_point(size=2) +
+    stat_summary(fun=mean, geom="line", color="red", aes(group=1)) +
+    facet_wrap(~ group, nrow=1) +
+    ggtitle(paste0("Gene : ",gene_list[i])) +
+    theme_gray()
+  select_plots[[i]] <- p 
+  i <- i+1
+}
+
+plot_grid(plotlist = select_plots, nrow = 3)
+dev.off()
 # Contrast 1 : 
 # Answer to the question : Which genes respond to T. gondii infection in wild-type mice?
 res_WT_control_case <- results(dds, contrast = c("condition", "Case", "Control"))
@@ -119,14 +143,16 @@ res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
 100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
 
 ## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-WT_control_case_sign_level <- rownames(res_WT_control_case[res_WT_control_case$padj< 0.05,])
+WT_control_case_sign_level <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (abs(res_WT_control_case$log2FoldChange)>1),])
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-WT_control_case_up_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange>0),])
+WT_control_case_up_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange>0) &
+                                                               (abs(res_WT_control_case$log2FoldChange)>1),])
 
 ### down-regulated
-WT_control_case_down_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange<0),])
+WT_control_case_down_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange<0) & 
+                                                                 (abs(res_WT_control_case$log2FoldChange)>1),])
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -147,21 +173,23 @@ res_control_WT_DK <- res_control_WT_DK[!is.na(res_control_WT_DK$padj),]
 100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
 
 ## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-control_WT_DK_sign_level <- rownames(res_control_WT_DK[res_control_WT_DK$padj< 0.05,])
+control_WT_DK_sign_level <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (abs(res_control_WT_DK$log2FoldChange)>1),])
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-control_WT_DK_up_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange>0),])
+control_WT_DK_up_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange>0)
+                                                         & (abs(res_control_WT_DK$log2FoldChange)>1),])
 
 ### down-regulated
-control_WT_DK_down_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange<0),])
+control_WT_DK_down_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange<0)
+                                                           & (abs(res_control_WT_DK$log2FoldChange)>1),])
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
 res_control_WT_DK[gene_id,]
 
 # Contrast 3 : 
-# Answer to the question : Assessing the overall impact of T. goodii infection in Double Knockout mice 
+# Answer to the question : What is the overall impact of T. goodii infection in Double Knockout mice ? 
 res_WT_control_DK_case <- results(dds,
                                   contrast=list(c("batch_Double_Knockout_vs_Wildtype",
                                     "batchDouble_Knockout.conditionCase",
@@ -177,21 +205,23 @@ res_WT_control_DK_case <- res_WT_control_DK_case[!is.na(res_WT_control_DK_case$p
 100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
 
 ## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-WT_control_DK_case_sign_level <- rownames(res_WT_control_DK_case[res_WT_control_DK_case$padj< 0.05,])
+WT_control_DK_case_sign_level <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-WT_control_DK_case_up_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange>0),])
+WT_control_DK_case_up_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange>0) 
+                                                                   & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
 
 ### down-regulated
-WT_control_DK_case_down_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange<0),])
+WT_control_DK_case_down_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange<0)
+                                                                     & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
 res_WT_control_DK_case[gene_id,]
 
 # Contrast 4 :
-# Answer to the question : Which genes depend on ifnar and ifngr in the response to T. gondii infection ?
+# Answer to the question : Which genes show a response to infection that is significantly different between WT and DKO mice ?
 res_case_WT_DK <- results(dds, contrast=list(c(
     "batch_Double_Knockout_vs_Wildtype",
     "batchDouble_Knockout.conditionCase")))
@@ -206,14 +236,16 @@ res_case_WT_DK <- res_case_WT_DK[!is.na(res_case_WT_DK$padj),]
 100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
 
 ## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-nrow(res_case_WT_DK[res_case_WT_DK$padj< 0.05,])
+case_WT_DK_sign_level <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (abs(res_case_WT_DK$log2FoldChange)>1),])
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-case_WT_DK_up_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange>0),])
+case_WT_DK_up_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange>0)
+                                                   & (abs(res_case_WT_DK$log2FoldChange)>1),])
 
 ### down-regulated
-case_WT_DK_down_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange<0),])
+case_WT_DK_down_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange<0)
+                                                     & (abs(res_case_WT_DK$log2FoldChange)>1),])
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -231,7 +263,7 @@ regulated_genes <- data.frame(num_up=c(length(WT_control_case_up_reg_genes),
                                     length(case_WT_DK_down_reg_genes)),
                   row.names = c("WT control vs case", "control WT vs DK", 
                                 "WT control vs DKO case", "case WT vs DKO"))
-regulated_genes$`padj > 5%` <- regulated_genes$num_up + regulated_genes$num_down
+regulated_genes$`Diff Expressed genes` <- c(length(WT_control_case_sign_level), length(control_WT_DK_sign_level), 
+                                            length(WT_control_DK_case_sign_level), length(case_WT_DK_sign_level))
 print(regulated_genes)
-
 
