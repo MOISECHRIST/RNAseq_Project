@@ -204,6 +204,8 @@ Fig. 7 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes upon inf
 ```
 .
 ├── main.sh
+├── imgs
+|   └── [list of images for readme.md]
 ├── container
 |   └── [list of containers (.sif)]
 ├── data
