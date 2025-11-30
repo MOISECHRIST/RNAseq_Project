@@ -142,17 +142,17 @@ res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
 
-## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-WT_control_case_sign_level <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (abs(res_WT_control_case$log2FoldChange)>1),])
+## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
+res_WT_control_case <- subset(res_WT_control_case, padj< 0.05 & abs(log2FoldChange)>1)
+
+WT_control_case_DE <- rownames(res_WT_control_case)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-WT_control_case_up_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange>0) &
-                                                               (abs(res_WT_control_case$log2FoldChange)>1),])
+WT_control_case_up_reg_genes <- rownames(subset(res_WT_control_case, log2FoldChange >1))
 
 ### down-regulated
-WT_control_case_down_reg_genes <- rownames(res_WT_control_case[(res_WT_control_case$padj< 0.05) & (res_WT_control_case$log2FoldChange<0) & 
-                                                                 (abs(res_WT_control_case$log2FoldChange)>1),])
+WT_control_case_down_reg_genes <- rownames(subset(res_WT_control_case, log2FoldChange < -1))
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -172,17 +172,17 @@ res_control_WT_DK <- res_control_WT_DK[!is.na(res_control_WT_DK$padj),]
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
 
-## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-control_WT_DK_sign_level <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (abs(res_control_WT_DK$log2FoldChange)>1),])
+## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
+res_control_WT_DK <- subset(res_control_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
+
+control_WT_DK_DE <- rownames(res_control_WT_DK)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-control_WT_DK_up_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange>0)
-                                                         & (abs(res_control_WT_DK$log2FoldChange)>1),])
+control_WT_DK_up_reg_genes <- rownames(subset(res_control_WT_DK, log2FoldChange >1))
 
 ### down-regulated
-control_WT_DK_down_reg_genes <- rownames(res_control_WT_DK[(res_control_WT_DK$padj< 0.05) & (res_control_WT_DK$log2FoldChange<0)
-                                                           & (abs(res_control_WT_DK$log2FoldChange)>1),])
+control_WT_DK_down_reg_genes <- rownames(subset(res_control_WT_DK, log2FoldChange < -1))
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -204,17 +204,17 @@ res_WT_control_DK_case <- res_WT_control_DK_case[!is.na(res_WT_control_DK_case$p
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
 
-## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-WT_control_DK_case_sign_level <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
+## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
+res_WT_control_DK_case <- subset(res_WT_control_DK_case, padj< 0.05 & abs(log2FoldChange)>1)
+
+WT_control_DK_case_DE <- rownames(res_WT_control_DK_case)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-WT_control_DK_case_up_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange>0) 
-                                                                   & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
+WT_control_DK_case_up_reg_genes <- rownames(subset(res_WT_control_DK_case, log2FoldChange >1))
 
 ### down-regulated
-WT_control_DK_case_down_reg_genes <- rownames(res_WT_control_DK_case[(res_WT_control_DK_case$padj< 0.05) & (res_WT_control_DK_case$log2FoldChange<0)
-                                                                     & (abs(res_WT_control_DK_case$log2FoldChange)>1),])
+WT_control_DK_case_down_reg_genes <- rownames(subset(res_WT_control_DK_case, log2FoldChange < -1))
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -235,17 +235,17 @@ res_case_WT_DK <- res_case_WT_DK[!is.na(res_case_WT_DK$padj),]
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
 
-## How many genes are differentially expressed (DE) (e.g. padj < 0.05) 
-case_WT_DK_sign_level <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (abs(res_case_WT_DK$log2FoldChange)>1),])
+## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
+res_case_WT_DK <- subset(res_case_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
+
+case_WT_DK_DE <- rownames(res_case_WT_DK)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
 ### up-regulated 
-case_WT_DK_up_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange>0)
-                                                   & (abs(res_case_WT_DK$log2FoldChange)>1),])
+case_WT_DK_up_reg_genes <- rownames(subset(res_case_WT_DK, log2FoldChange >1))
 
 ### down-regulated
-case_WT_DK_down_reg_genes <- rownames(res_case_WT_DK[(res_case_WT_DK$padj< 0.05) & (res_case_WT_DK$log2FoldChange<0)
-                                                     & (abs(res_case_WT_DK$log2FoldChange)>1),])
+case_WT_DK_down_reg_genes <- rownames(subset(res_case_WT_DK, log2FoldChange < -1))
 
 ## Based on the original publication, select 2-3 genes 
 ## that are of particular interest and investigate their expression level
@@ -261,9 +261,12 @@ regulated_genes <- data.frame(num_up=c(length(WT_control_case_up_reg_genes),
                                     length(control_WT_DK_down_reg_genes),
                                     length(WT_control_DK_case_down_reg_genes),
                                     length(case_WT_DK_down_reg_genes)),
-                  row.names = c("WT control vs case", "control WT vs DK", 
-                                "WT control vs DKO case", "case WT vs DKO"))
-regulated_genes$`Diff Expressed genes` <- c(length(WT_control_case_sign_level), length(control_WT_DK_sign_level), 
-                                            length(WT_control_DK_case_sign_level), length(case_WT_DK_sign_level))
+                  DE_genes=c(length(WT_control_case_DE), length(control_WT_DK_DE), 
+                               length(WT_control_DK_case_DE), length(case_WT_DK_DE)),
+                  row.names = c("WT control vs WT case", "WT control vs DK control", 
+                                "WT control vs DKO case", "WT case vs DKO case"))
+
 print(regulated_genes)
+
+
 
