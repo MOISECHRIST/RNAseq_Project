@@ -166,15 +166,13 @@ Selection of pairwise comparison
 - How many genes are differentially expressed (DE) in the pairwise comparison you selected,
 - How many of the differentially expressed genes are up-regulated vs down-regulated?
 
-| Pairwise comparison | up-regulated genes 
-(padj < 5% and log2FC > 1) | down-regulated genes
-(padj < 5% and log2FC < -1) | differentially expressed genes
-(padj < 5% and |Log2FC| > 1) |
-| --- | --- | --- | --- |
+| Pairwise Comparison | Up-regulated Genes ($\text{padj} < 0.05$ & $\text{Log2FC} > 1$) | Down-regulated Genes ($\text{padj} < 0.05$ & $\text{Log2FC} < -1$) | Total Differentially Expressed Genes (Total DEG) |
+| :--- | :--- | :--- | :--- |
 | WT control vs WT case | 2573 | 3682 | 6255 |
-| WT control vs DK control | 168 | 325 | 493 |
+| WT control vs DKO control | 168 | 325 | 493 |
 | WT control vs DKO case | 2504 | 3570 | 6074 |
 | WT case vs DKO case | 1914 | 1746 | 3660 |
+
 
 **Question 3 :** Selection of three genes and investigate their expression level 
 
