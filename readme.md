@@ -264,8 +264,8 @@ Fig. 7 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes upon inf
 |   └── [list of containers (.sif)]
 ├── data
 │   ├── dataset -> /data/courses/rnaseq_course/toxoplasma_de/reads_Lung
-|       ├── README
-|       └── [Pairend reads (SRR78219*_[12].fastq.gz)]
+|   |   ├── README
+|   |   └── [Pairend reads (SRR78219*_[12].fastq.gz)]
 │   └── refseq
 |       ├── Mus_musculus.GRCm39.115.exon
 |       ├── Mus_musculus.GRCm39.115.fa
