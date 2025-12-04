@@ -145,14 +145,16 @@ This quality control analysis reveals three key patterns:
 
 1. Baseline similarity: Wild-type control and double knockout control samples show nearly identical gene expression profiles, indicating minimal constitutive effects of the knockout in uninfected conditions.
 2. Divergent infection responses: Two distinct gene expression patterns emerge upon infection:
-    - **Pattern A (PC1-driven genes):** Infected wild-type samples remain transcriptionally similar to control samples, while infected double knockout samples show marked divergence. This suggests these genes are upregulated in wild-type mice upon infection but downregulated (or fail to respond) in double knockout mice.
-    - **Pattern B (shared response genes):** Both infected wild-type and infected double knockout samples diverge from controls in the same direction. This indicates genes whose infection-induced expression changes are preserved despite the knockout, suggesting IFN-independent infection responses.
+    - Infected wild-type samples remain transcriptionally similar to control samples, while infected double knockout samples show marked divergence. This suggests these genes are upregulated in wild-type mice upon infection but downregulated (or fail to respond) in double knockout mice.
+    - Both infected wild-type and infected double knockout samples diverge from controls in the same direction. This indicates genes whose infection-induced expression changes are preserved despite the knockout, suggesting IFN-independent infection responses.
 
 These patterns confirm that the double knockout substantially alters the transcriptional response to *T. gondii* infection for a subset of genes, while other infection-responsive genes remain intact.
 
 ### **Differential expression analysis**
 
-Selection of pairwise comparison 
+We asked ourselves questions based on the research questions. This enabled us to draw the following pairwise comparisons : 
+
+Tab. 2 : Selected pairwise comparisons
 
 | Objectives | Pairwise comparison | Question asked |
 | --- | --- | --- |
@@ -167,6 +169,9 @@ Selection of pairwise comparison
 - How many of the differentially expressed genes are up-regulated vs down-regulated?
 
 To keep only differentially expressed genes which are both statistically significant and biologically relevant (a sufficient change in expression to be interesting), genes with padj < 5% and Log2FoldChange > 1 or Log2FoldChange < -1 were selected for the next steps of our analysis. 
+The following table represent for each pairwise comparison, the number of differentially expressed genes, the up-regulated genes (log2FC > 1) and the down-regulated genes (log2FC < -1).
+
+Tab. 4 : Number of differentially expressed genes 
 
 | Pairwise Comparison | Up-regulated Genes                      | Down-regulated Genes                       | Differentially Expressed Genes   |
 | :--- |:----------------------------------------|:-------------------------------------------|:---------------------------------|
