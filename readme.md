@@ -1,10 +1,18 @@
 # RNAseq Project
 
 ## About project 
-Here I will put an introduction about this project with these elements :
-- Context 
-- Problem 
-- Objectives
+This project aims to understand how the immune system responds to *Toxoplasma gondii*, an obligate intracellular parasite capable of infecting most warm-blooded animals, including humans. While infection is often asymptomatic in healthy individuals, *T. gondii* can cause severe disease in immunocompromised hosts and during pregnancy.
+
+Using a mouse model, this project investigates the early impact of *T. gondii* infection on lung tissue, an organ strongly affected during the acute phase of infection. Two experimental groups were analyzed:
+
+- **Wild-type (WT)** mice with a normal immune response
+- **Double-knockout (DKO)** mice lacking the interferon receptors **IFNGR** and **IFNAR**, which play key roles in parasite control
+
+Through RNA-seq analysis of these groups, the project aims to:
+
+- Characterize the pulmonary immune response to *T. gondii*
+- Identify differences in gene expression between WT and DKO backgrounds
+- Assess how interferon signaling influences pathogen control and disease severity
 
 ## Methodology 
 
