@@ -109,6 +109,8 @@ Consequently, this 5.6% of data will be lost for expression analysis, leading 
 
 ### **Count the number of reads per gene**
 
+The figure 5 below shows the percentage of reads assigned to exons (Assigned) and other information, such as the percentage of unmapped reads (Unassigned: Unmapped), the percentage of multimapped reads (Unassigned: Multi Mapping), the percentage of reads mapped on introns (Unassigned: No Features), and the percentage of reads those aligning equally well on multiple loci (Unassigned: Ambiguity).
+
 <img height="650" src="./imgs/featureCounts_assignment_plot.png" width="800"/>
 
 Fig. 5 : featureCounts : assignment reads to exons 
