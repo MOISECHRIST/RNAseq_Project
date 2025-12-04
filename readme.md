@@ -6,6 +6,32 @@ This project investigates the pulmonary immune response to *Toxoplasma gondii* i
 
 Using a dataset designed to profile global immune transcriptional responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
 
+## Installation
+
+```bash
+#In your computer
+git clone https://github.com/MOISECHRIST/RNAseq_Project.git 
+
+#In the IBU cluster 
+git clone git@github.com:MOISECHRIST/RNAseq_Project.git /data/user/${USER}/RNAseq_Project
+
+#Move in the repository 
+cd /data/user/${USER}/RNAseq_Project
+```
+
+## Run analysis
+
+### For the HPC (IBU) part 
+```bash
+chmod u+x main.sh
+./main.sh
+```
+
+### For the R data analysis
+```bash
+Rscript --vanilla ./scripts/13-Run_R_data_analysis.R
+```
+
 ## Methodology 
 
 ### Data set 
@@ -32,7 +58,7 @@ In addition to quality report given by Hisat2 during the alignment, we also get 
 
 After read mapping, the next step in our workflow was to count the number of reads per gene. Here, we used the [featureCounts](https://subread.sourceforge.net/featureCounts.html) tool on all our BAM files, which returned a feature count table containing all genes in our reference in the rows and the sample ID in the columns.
 
-The second result of featureCounts is a summary text file. This summary text file was loaded into a MultiQC report to get a better glimpse of the per-gene counting read statistics. 
+The second result of featureCounts is a summary text file. This summary text file was loaded into a MultiQC report to get a better glimpse of the per-gene counting read statistics. 
 
 ### Exploratory data analysis
 

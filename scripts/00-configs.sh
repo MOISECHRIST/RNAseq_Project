@@ -6,7 +6,7 @@
 ## Description : In this configuration file, I will set up all the global paths and variables that will be used in 
 ##                this project and import all the useful modules needed for it.
 ## Creation date : 02-11-2025
-## Last Update : 13-11-2025
+## Last Update : 05-12-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -14,7 +14,7 @@
 ##------------------------------------------------------------------------
 
 #Define the path to our working directory
-WORKING_DIR=/data/users/mmeka/RNAseq_project
+WORKING_DIR=/data/users/${USER}/RNAseq_project
 
 ##------------------------------------------------------------------------
 ## Set up path for all scripts
