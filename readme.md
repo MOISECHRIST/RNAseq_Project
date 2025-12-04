@@ -1,24 +1,22 @@
 # RNAseq Project
 
 ## About project 
-This project aims to understand how the immune system responds to *Toxoplasma gondii*, an obligate intracellular parasite capable of infecting most warm-blooded animals, including humans. While infection is often asymptomatic in healthy individuals, *T. gondii* can cause severe disease in immunocompromised hosts and during pregnancy.
 
-Using a mouse model, this project investigates the early impact of *T. gondii* infection on lung tissue, an organ strongly affected during the acute phase of infection. Two experimental groups were analyzed:
+This project investigates the pulmonary immune response to *Toxoplasma gondii* infection in mice using bulk RNA-seq data analysis. *T. gondii* is a medically important intracellular parasite capable of causing severe disease in immunocompromised individuals and in susceptible tissues such as the lungs during acute infection.
 
-- **Wild-type (WT)** mice with a normal immune response
-- **Double-knockout (DKO)** mice lacking the interferon receptors **IFNGR** and **IFNAR**, which play key roles in parasite control
-
-Through RNA-seq analysis of these groups, the project aims to:
-
-- Characterize the pulmonary immune response to *T. gondii*
-- Identify differences in gene expression between WT and DKO backgrounds
-- Assess how interferon signaling influences pathogen control and disease severity
+Using a dataset designed to profile global immune transcriptional responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
 
 ## Methodology 
 
 ### Data set 
 
-The lung dataset provided for this project contains 15 samples, each represented by paired-end Illumina FASTQ files with a read length of 75 bp, as well as a README file containing the associated metadata. Inspection of the README indicates that the dataset includes four experimental groups: WT control (3 samples), WT case (5 samples), DKO control (3 samples), and DKO case (4 samples). The DKO mice carry a homozygous deletion of the interferon receptors Ifngr (Ifngr-/-) and Ifnar (Ifnar-/-).
+The lung dataset provided for this project contains 15 samples, each represented by paired-end Illumina FASTQ files with a read length of 75 bp, as well as a README file containing the associated metadata. Inspection of the README indicates that the dataset includes four experimental groups: 
+- WT control (3 samples), 
+- WT case (5 samples), 
+- DKO control (3 samples), 
+- and DKO case (4 samples). 
+
+The DKO mice carry a homozygous deletion of the interferon receptors Ifngr (Ifngr-/-) and Ifnar (Ifnar-/-).
 
 ### Quality Control
 
