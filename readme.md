@@ -166,6 +166,8 @@ Selection of pairwise comparison
 - How many genes are differentially expressed (DE) in the pairwise comparison you selected,
 - How many of the differentially expressed genes are up-regulated vs down-regulated?
 
+To keep only differentially expressed genes which are both statistically significant and biologically relevant (a sufficient change in expression to be interesting), genes with padj < 5% and Log2FoldChange > 1 or Log2FoldChange < -1 were selected for the next steps of our analysis. 
+
 | Pairwise Comparison | Up-regulated Genes                      | Down-regulated Genes                       | Differentially Expressed Genes   |
 | :--- |:----------------------------------------|:-------------------------------------------|:---------------------------------|
 | WT control vs WT case | 2573                                    | 3682                                       | 6255                             |
@@ -184,7 +186,7 @@ This gene is a classical marker of the Type I IFN response. Mx1 clearly demonstr
 
 2. Ifit1 (Interferon-Induced Protein with Tetratricopeptide Repeats 1)
 
-Ifit1 (along with related genes Ifit3, Oas1a, etc.) belongs to the same L5 module as Mx1 and follows an identical expression pattern. ****Its mention in the section on tonic activity is particularly relevant. Its expression was already slightly lower in uninfected Ifnar⁻/⁻ mice compared to uninfected wild-type mice, demonstrating that basal Type I IFN activity exists constitutively in healthy lung tissue.
+Ifit1 (along with related genes Ifit3, Oas1a, etc.) belongs to the same L5 module as Mx1 and follows an identical expression pattern. Its mention in the section on tonic activity is particularly relevant. Its expression was already slightly lower in uninfected Ifnar⁻/⁻ mice compared to uninfected wild-type mice, demonstrating that basal Type I IFN activity exists constitutively in healthy lung tissue.
 
 3. Tap1 (Transporter Associated with Antigen Processing 1)
 

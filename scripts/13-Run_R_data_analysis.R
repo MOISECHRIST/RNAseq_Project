@@ -28,6 +28,7 @@ library("pheatmap")
 library(ggplot2)
 library(ggrepel)
 library(cowplot)
+library("RColorBrewer")
 
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
@@ -68,8 +69,21 @@ pheatmap(assay(vsd)[select[1:max_val],], cluster_rows=F, show_rownames=FALSE,
          cluster_cols=T, annotation_col=df)
 dev.off()
 
-## PCA 
+## Sample clustering (HAC of distance between samples)
+sampleDists <- dist(t(assay(vsd)))
 
+sampleDistMatrix <- as.matrix(sampleDists)
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+
+pdf("results/summary/DE_Analysis/plots/vst_sample_clustering.pdf")
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists,
+         col=colors, annotation_col = df, 
+         show_rownames = F)
+dev.off()
+
+## PCA 
 pdf("results/summary/DE_Analysis/plots/vst_plotPCA.pdf")
 
 pcaData <- plotPCA(vsd, intgroup=c("condition", "batch"), returnData=TRUE)
