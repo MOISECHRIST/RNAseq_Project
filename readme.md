@@ -8,6 +8,10 @@ Here I will put an introduction about this project with these elements :
 
 ## Methodology 
 
+### Data set 
+
+The lung dataset provided for this project contains 15 samples, each represented by paired-end Illumina FASTQ files with a read length of 75 bp, as well as a README file containing the associated metadata. Inspection of the README indicates that the dataset includes four experimental groups: WT control (3 samples), WT case (5 samples), DKO control (3 samples), and DKO case (4 samples). The DKO mice carry a homozygous deletion of the interferon receptors Ifngr (Ifngr-/-) and Ifnar (Ifnar-/-).
+
 ### Quality Control
 
 The lung data set contain 15 samples which with paired-end fastq file and a README file containing metadata about each sample. To assess the quality control of our data set, we use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) , a tools using to assess quality of fastq files. For each sample, FastQC gives a report (html) and some additional data in a archive. These archives are using by [MultQC](https://github.com/MultiQC/MultiQC) to merge the quality report of each fastq file in only one report (html).
@@ -31,6 +35,8 @@ The second result of featureCounts is a summary text file. This summary text 
 ### Overrepresentation analysis
 
 ## Results 
+
+Presented below are the results of the analyses performed on the lung dataset, along with the answers to the various questions asked at each stage of the project.
 
 ### Quality Control
 
