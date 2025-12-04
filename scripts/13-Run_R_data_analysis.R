@@ -15,6 +15,15 @@
 ##------------------------------------------------------------------------
 ## Step 1 : Set Working Directory
 ##------------------------------------------------------------------------
+args <- commandArgs(trailingOnly=TRUE)
+
+if(file.exists(args[1])!=TRUE){
+  stop("Error: Patg provided do not exist.", call.=FALSE)
+}
+
+path_to_working_dir <- args[1]
+
+#setwd(path_to_working_dir)
 setwd("~/Documents/Msc_Bioinf_UniBern/Master-1/Semester-1/RNA Seq Analysis/project/RNAseq_Project")
 
 ##------------------------------------------------------------------------
