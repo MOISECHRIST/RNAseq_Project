@@ -24,13 +24,13 @@ cd /data/user/${USER}/RNAseq_Project
 
 ## Run analysis
 
-### For the HPC (IBU) part 
+### Step 1 : in the HPC (IBU) part 
 ```bash
 chmod u+x main.sh
 ./main.sh
 ```
 
-### For the R data analysis
+### Step 2 : R data analysis
 ```bash
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
