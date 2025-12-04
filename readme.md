@@ -10,12 +10,15 @@ Using a dataset designed to profile global immune transcriptional responses acro
 
 ```bash
 #In your computer
+##clone the repository 
 git clone https://github.com/MOISECHRIST/RNAseq_Project.git 
+##Move in the repository
+cd RNAseq_Project
 
 #In the IBU cluster 
+##clone the repository 
 git clone git@github.com:MOISECHRIST/RNAseq_Project.git /data/user/${USER}/RNAseq_Project
-
-#Move in the repository 
+##Move in the repository 
 cd /data/user/${USER}/RNAseq_Project
 ```
 
