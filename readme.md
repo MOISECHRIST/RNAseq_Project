@@ -32,7 +32,7 @@ In addition to quality report given by Hisat2 during the alignment, we also get 
 
 After read mapping, the next step in our workflow was to count the number of reads per gene. Here, we used the [featureCounts](https://subread.sourceforge.net/featureCounts.html) tool on all our BAM files, which returned a feature count table containing all genes in our reference in the rows and the sample ID in the columns.
 
-The second result of featureCounts is a summary text file. This summary text file was loaded into a MultiQC report to get a better glimpse of the per-gene counting read statistics. The figure 5 below shows the percentage of reads assigned to exons (Assigned) and other information, such as the percentage of unmapped reads (Unassigned: Unmapped), the percentage of multimapped reads (Unassigned: Multi Mapping), the percentage of reads mapped on introns (Unassigned: No Features), and the percentage of reads those aligning equally well on multiple loci (Unassigned: Ambiguity).
+The second result of featureCounts is a summary text file. This summary text file was loaded into a MultiQC report to get a better glimpse of the per-gene counting read statistics. 
 
 ### Exploratory data analysis
 
