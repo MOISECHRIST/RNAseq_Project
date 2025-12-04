@@ -32,7 +32,7 @@ chmod u+x main.sh
 
 ### For the R data analysis
 ```bash
-Rscript --vanilla ./scripts/13-Run_R_data_analysis.R $PWD
+Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
 
 ## Methodology 
