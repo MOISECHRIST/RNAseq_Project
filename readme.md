@@ -15,8 +15,6 @@ Here I will put an introduction about this project with these elements :
 
 ### Quality Control
 
-The lung data set contain 15 samples which with paired-end fastq file and a README file containing metadata about each sample. To assess the quality control of our data set, we use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) , a tools using to assess quality of fastq files. For each sample, FastQC gives a report (html) and some additional data in a archive. These archives are using by [MultQC](https://github.com/MultiQC/MultiQC) to merge the quality report of each fastq file in only one report (html).
-
 Below we are going to answer to all question about quality control of our 15
 
 **Question 1 :** How many reads do we have per sample?
@@ -49,10 +47,6 @@ Regarding of the information above, we can see that we do not need to clean our 
 
 ### **Map reads to the reference genome**
 
-In this step of our analysis workflow we used [Hisat2](http://daehwankimlab.github.io/hisat2/) to align our paired-end sequences to the reference (Mus Musculus GRCm39.115) downloader from [Ensembl ftp site](https://www.ensembl.org/info/data/ftp/index.html).  In this particular step, we first did indexing of the reference using Hisat2, then for each sample we align the reads from fastq file to the reference. The results Sam files (one per sample) are use as input in [Samtools view](http://www.htslib.org/doc/samtools.html) to convert them into Bam files. After obtaining the Bam files, the next steps are sorting Bam files and indexing the sorted Bam files. 
-
-In addition to quality report given by Hisat2 during the alignment, we also get other information with [Samtools stats](http://www.htslib.org/doc/samtools.html) and [Samtools coverage](http://www.htslib.org/doc/samtools.html) to assess how the alignment was performed.
-
 The next lines below present some of these results and the related interpretation. 
 
  
@@ -84,10 +78,6 @@ Consequently, this 5.6% of data will be lost for expression analysis, leading 
 
 ### **Count the number of reads per gene**
 
-After read mapping, the next step in our workflow was to count the number of reads per gene. Here, we used the [featureCounts](https://subread.sourceforge.net/featureCounts.html) tool on all our BAM files, which returned a feature count table containing all genes in our reference in the rows and the sample ID in the columns.
-
-The second result of featureCounts is a summary text file. This summary text file was loaded into a MultiQC report to get a better glimpse of the per-gene counting read statistics. The figure 5 below shows the percentage of reads assigned to exons (Assigned) and other information, such as the percentage of unmapped reads (Unassigned: Unmapped), the percentage of multimapped reads (Unassigned: Multi Mapping), the percentage of reads mapped on introns (Unassigned: No Features), and the percentage of reads those aligning equally well on multiple loci (Unassigned: Ambiguity).
-
 <img height="650" src="./imgs/featureCounts_assignment_plot.png" width="800"/>
 
 Fig. 5 : featureCounts : assignment reads to exons 
@@ -104,15 +94,12 @@ The inability to unambiguously assign reads to a specific gene is a key challeng
 
 ### **Exploratory data analysis**
 
-At this stage of the analysis, we use the featureCounts results together with the metadata as inputs. These data are integrated into a DESeqDataSet object, and a Variance Stabilizing Transformation (VST) is then applied to the count matrix, without taking the experimental groups into account.
-
-The VST-normalized matrix is subsequently used as input for a Principal Component Analysis (PCA) on the whole count matrix to visualize how the samples cluster based on their gene expression profiles. Figure 6 presents the results of this analysis.
-
 **Question 1 :** In some way, visualise how the samples cluster based on their gene expression profiles
 
 <img height="650" src="./imgs/image_2.png" width="800"/>
 
 Fig. 6 : Principal Component Analysis (PCA) plot of the samples
+
 **Question 2 :** Briefly comment on the observed pattern and what it means for downstream analysis
 
 Using the top 500 most variable genes from our count matrix for PCA, the first two principal components retained 84% of the total variance. Examination of the clustering pattern reveals distinct sample groupings:
