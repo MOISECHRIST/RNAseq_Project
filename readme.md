@@ -35,7 +35,7 @@ chmod u+x main.sh
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
 
-## Methodology 
+## Method and materials
 
 ### Data set 
 
@@ -65,7 +65,12 @@ The second result of featureCounts is a summary text file. This summary text fi
 
 ### Exploratory data analysis
 
+At this stage of the analysis, the featureCounts results, together with the sample metadata, were integrated into a DESeqDataSet object using the DESeq2 package (v1.46.0). A Variance Stabilizing Transformation (VST) was then applied to the count matrix, without considering the experimental groups (blind=TRUE).
+The resulting VST-normalized matrix was used for Principal Component Analysis (PCA), focusing on the 500 most variable genes, to visualize how the samples cluster based on their gene expression profiles.
+
 ### Differential expression analysis
+
+To retain only differentially expressed genes that are both statistically significant and biologically meaningful, we selected genes with adjusted p-value (padj) < 0.05 and |Log2FoldChange| > 1 for subsequent analyses. This step was performed using the DESeq2 package (v1.46.0).
 
 ### Overrepresentation analysis
 
