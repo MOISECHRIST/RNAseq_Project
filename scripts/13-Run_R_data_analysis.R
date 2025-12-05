@@ -31,12 +31,15 @@ setwd("~/Documents/Msc_Bioinf_UniBern/Master-1/Semester-1/RNA Seq Analysis/proje
 library(conflicted)
 library("DESeq2")
 library("clusterProfiler")
+library(org.Mm.eg.db)
 library("vsn")
 library("pheatmap")
 library(ggplot2)
 library(ggrepel)
 library(cowplot)
 library("RColorBrewer")
+library(enrichplot)
+library(patchwork)
 
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
@@ -154,6 +157,7 @@ dev.off()
 # Contrast 1 : 
 # Answer to the question : Which genes respond to T. gondii infection in wild-type mice?
 res_WT_control_case <- results(dds, contrast = c("condition", "Case", "Control"))
+res_WT_control_case <- res_WT_control_case[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
 ## Check the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
@@ -165,7 +169,7 @@ res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
 100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
 
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
-res_WT_control_case <- subset(res_WT_control_case, padj< 0.05 & abs(log2FoldChange)>1)
+res_WT_control_case <- subset(res_WT_control_case, padj< 0.05 & abs(log2FoldChange)>1 )
 
 WT_control_case_DE <- rownames(res_WT_control_case)
 
@@ -184,6 +188,7 @@ res_WT_control_case[gene_id,]
 # Contrast 2 : 
 # Answer to the question : Which genes are different between DKO and WT in the absence of infection ?
 res_control_WT_DK <- results(dds, name = "batch_Double_Knockout_vs_Wildtype")
+res_control_WT_DK <- res_control_WT_DK[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
 ## Check the proportion of missing values (NA) in results
 100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
@@ -216,6 +221,7 @@ res_WT_control_DK_case <- results(dds,
                                   contrast=list(c("batch_Double_Knockout_vs_Wildtype",
                                     "batchDouble_Knockout.conditionCase",
                                     "condition_Case_vs_Control")))
+res_WT_control_DK_case <- res_WT_control_DK_case[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
 ## Check the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
@@ -247,6 +253,7 @@ res_WT_control_DK_case[gene_id,]
 res_case_WT_DK <- results(dds, contrast=list(c(
     "batch_Double_Knockout_vs_Wildtype",
     "batchDouble_Knockout.conditionCase")))
+res_case_WT_DK <- res_case_WT_DK[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
 ## Check the proportion of missing values (NA) in results
 100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
@@ -290,5 +297,65 @@ regulated_genes <- data.frame(num_up=c(length(WT_control_case_up_reg_genes),
 
 print(regulated_genes)
 
+
+##------------------------------------------------------------------------
+## Step 6 : Overrepresentation analysis
+##------------------------------------------------------------------------
+
+# Contrast 1 :
+## Run overrepresentation analysis
+ego_WT_control_case <- enrichGO(gene = WT_control_case_DE, OrgDb = org.Mm.eg.db, 
+                                keyType = "ENSEMBL", ont="BP", readable=TRUE,
+                                pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+
+top <- 10
+## Plot the top 10 GO terms detected in the overrepresentation analysis
+p1 <- dotplot(ego_WT_control_case, showCategory=top, font.size=8)+ 
+  ggtitle("WT control vs WT case")
+
+g1 <- cnetplot(ego_WT_control_case, node_label = "gene"
+               color.params = list(foldChange = res_WT_control_case$log2FoldChange))+ 
+  ggtitle("WT control vs WT case")
+
+
+# Contrast 2 :
+## Run overrepresentation analysis
+ego_control_WT_DK <- enrichGO(gene = control_WT_DK_DE, OrgDb = org.Mm.eg.db, 
+                              keyType = "ENSEMBL", ont="BP", readable=TRUE,
+                              pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+
+## Plot the top 10 GO terms detected in the overrepresentation analysis
+p2 <- dotplot(ego_control_WT_DK, showCategory=top, font.size=8)+ 
+  ggtitle("WT control vs DK control")
+
+
+
+
+# Contrast 3 :
+## Run overrepresentation analysis
+ego_WT_control_DK_case <- enrichGO(gene = WT_control_DK_case_DE, OrgDb = org.Mm.eg.db, 
+                                   keyType = "ENSEMBL", ont="BP", readable=TRUE,
+                                   pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+
+## Plot the top 10 GO terms detected in the overrepresentation analysis
+p3 <- dotplot(ego_WT_control_DK_case, showCategory=top, font.size=8)+ 
+  ggtitle("WT control vs DKO case")
+
+
+# Contrast 4 :
+## Run overrepresentation analysis
+ego_case_WT_DK <- enrichGO(gene = case_WT_DK_DE, OrgDb = org.Mm.eg.db, 
+                           keyType = "ENSEMBL", ont="BP", readable=TRUE,
+                           pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+
+## Plot the top 10 GO terms detected in the overrepresentation analysis
+p4 <- dotplot(ego_case_WT_DK, showCategory=top, font.size=8)+ 
+  ggtitle("WT case vs DKO case")
+
+
+png("results/summary/DE_Analysis/plots/ORA_dotplot.png", width = 1380, height = 735)
+plot_list(p1, p2, p3, p4,
+          tag_levels = "A")
+dev.off()
 
 

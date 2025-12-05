@@ -227,12 +227,12 @@ The following table represent for each pairwise comparison, the number of differ
 
 Tab. 4 : Number of differentially expressed genes 
 
-| Pairwise Comparison | Up-regulated Genes                      | Down-regulated Genes                       | Differentially Expressed Genes   |
-| :--- |:----------------------------------------|:-------------------------------------------|:---------------------------------|
-| WT control vs WT case | 2573                                    | 3682                                       | 6255                             |
-| WT control vs DKO control | 168                                     | 325                                        | 493                              |
-| WT control vs DKO case | 2504                                    | 3570                                       | 6074                             |
-| WT case vs DKO case | 1914                                    | 1746                                       | 3660                             |
+| Pairwise Comparison | Up-regulated Genes | Down-regulated Genes | Differentially Expressed Genes |
+| :--- |:-------------------|:---------------------|:-------------------------------|
+| WT control vs WT case | 2561               | 3667                 | 6228                           |
+| WT control vs DKO control | 167                | 324                  | 491                            |
+| WT control vs DKO case | 2491               | 3550                 | 6041                           |
+| WT case vs DKO case | 1904               | 1734                 | 3638                           |
 
 
 **Question 3 :** Selection of three genes and investigate their expression level 
