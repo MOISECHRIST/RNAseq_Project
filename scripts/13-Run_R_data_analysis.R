@@ -15,19 +15,51 @@
 ##------------------------------------------------------------------------
 ## Step 1 : Set Working Directory
 ##------------------------------------------------------------------------
-#args <- commandArgs(trailingOnly=TRUE)
+args <- commandArgs(trailingOnly=TRUE)
 
-#if(file.exists(args[1])!=TRUE){
-#  stop("Error: Patg provided do not exist.", call.=FALSE)
-#}
-#path_to_working_dir <- args[1]
-#setwd(path_to_working_dir)
+if(file.exists(args[1])!=TRUE){
+  stop("Error: Patg provided do not exist.", call.=FALSE)
+}
+path_to_working_dir <- args[1]
 
-setwd("~/Documents/Msc_Bioinf_UniBern/Master-1/Semester-1/RNA Seq Analysis/project/RNAseq_Project")
+setwd(path_to_working_dir)
 
 ##------------------------------------------------------------------------
 ## Step 2 : Import libraries 
 ##------------------------------------------------------------------------
+if (!require("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+
+cran_packages <- c(
+  "conflicted", "vsn", "pheatmap", "ggplot2", 
+  "ggrepel", "cowplot", "RColorBrewer", "patchwork"
+)
+
+bioc_packages <- c(
+  "DESeq2", "clusterProfiler", "org.Mm.eg.db", "enrichplot"
+)
+
+## Install CRAN packages
+for(pkg in cran_packages){
+  if(!requireNamespace(pkg, quietly = TRUE)){
+    install.packages(pkg, dependencies = TRUE)
+  }
+}
+
+## Install BiocManager
+if(!requireNamespace("BiocManager", quietly = TRUE)){
+  install.packages("BiocManager")
+}
+
+## Install Bioconductor packages 
+for(pkg in bioc_packages){
+  if(!requireNamespace(pkg, quietly = TRUE)){
+    BiocManager::install(pkg, ask = FALSE)
+  }
+}
+
+## Load packages
 library(conflicted)
 library("DESeq2")
 library("clusterProfiler")
@@ -302,6 +334,25 @@ print(regulated_genes)
 ## Step 6 : Overrepresentation analysis
 ##------------------------------------------------------------------------
 
+## Function to create a vector of foldchange with rownames gene name
+named_foldChange <- function(de_results, gene_detail) {
+  
+  gene_id_list <- rownames(de_results)
+  gene_name_list <- gene_detail[match(gene_id_list, gene_detail$gene_id), "gene_name"]
+  
+  fc_vector <- de_results$log2FoldChange
+  
+  names(fc_vector) <- gene_name_list
+  
+  return(fc_vector)
+}
+
+## List of GO Description related to our study base on the original publication
+list_GO_desc <- c("response to type II interferon", "cellular response to type II interferon",
+                  "type II interferon-mediated signaling pathway", 
+                  "response to type I interferon", "cellular response to type I interferon", 
+                  "type I interferon-mediated signaling pathway")
+
 # Contrast 1 :
 ## Run overrepresentation analysis
 ego_WT_control_case <- enrichGO(gene = WT_control_case_DE, OrgDb = org.Mm.eg.db, 
@@ -313,10 +364,12 @@ top <- 10
 p1 <- dotplot(ego_WT_control_case, showCategory=top, font.size=8)+ 
   ggtitle("WT control vs WT case")
 
-g1 <- cnetplot(ego_WT_control_case, node_label = "gene"
-               color.params = list(foldChange = res_WT_control_case$log2FoldChange))+ 
+## Plot cnetplot 
+fc <- named_foldChange(res_WT_control_case, gene.detail)
+g1 <- cnetplot(ego_WT_control_case, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+ 
   ggtitle("WT control vs WT case")
-
 
 # Contrast 2 :
 ## Run overrepresentation analysis
@@ -328,8 +381,12 @@ ego_control_WT_DK <- enrichGO(gene = control_WT_DK_DE, OrgDb = org.Mm.eg.db,
 p2 <- dotplot(ego_control_WT_DK, showCategory=top, font.size=8)+ 
   ggtitle("WT control vs DK control")
 
-
-
+## Plot cnetplot
+fc <- named_foldChange(res_control_WT_DK, gene.detail)
+g2 <- cnetplot(ego_control_WT_DK, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+  ggtitle("WT control vs DK control")
 
 # Contrast 3 :
 ## Run overrepresentation analysis
@@ -341,6 +398,12 @@ ego_WT_control_DK_case <- enrichGO(gene = WT_control_DK_case_DE, OrgDb = org.Mm.
 p3 <- dotplot(ego_WT_control_DK_case, showCategory=top, font.size=8)+ 
   ggtitle("WT control vs DKO case")
 
+## Plot cnetplot
+fc <- named_foldChange(res_WT_control_DK_case, gene.detail)
+g3 <- cnetplot(ego_WT_control_DK_case, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+  ggtitle("WT control vs DKO case")
 
 # Contrast 4 :
 ## Run overrepresentation analysis
@@ -352,10 +415,22 @@ ego_case_WT_DK <- enrichGO(gene = case_WT_DK_DE, OrgDb = org.Mm.eg.db,
 p4 <- dotplot(ego_case_WT_DK, showCategory=top, font.size=8)+ 
   ggtitle("WT case vs DKO case")
 
+## Plot cnetplot
+fc <- named_foldChange(res_case_WT_DK, gene.detail)
+g4 <- cnetplot(ego_case_WT_DK, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+  ggtitle("WT case vs DKO case")
+
+
 
 png("results/summary/DE_Analysis/plots/ORA_dotplot.png", width = 1380, height = 735)
 plot_list(p1, p2, p3, p4,
           tag_levels = "A")
 dev.off()
 
+png("results/summary/DE_Analysis/plots/ORA_cnetplot.png", width = 1380, height = 735)
+plot_list(g1, g2, g3, g4,
+          tag_levels = "A")
+dev.off()
 

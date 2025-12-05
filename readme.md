@@ -257,6 +257,13 @@ Fig. 7 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes upon inf
 
 ### **Overrepresentation analysis**
 
+<img height="650" src="./imgs/image_4.png" width="800"/>
+
+Fig. 8 : The top 10 GO terms detected per pairwise comparisons 
+
+<img height="650" src="./imgs/image_5.png" width="800"/>
+
+Fig. 9 : Gene connect network per pairwise comparisons 
 
 ## Project structure
 
