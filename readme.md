@@ -1,10 +1,10 @@
 # RNAseq Project
 
-## About project 
+## About the project 
 
 This project investigates the pulmonary immune response to *Toxoplasma gondii* infection in mice using bulk RNA-seq data analysis. *T. gondii* is a medically important intracellular parasite capable of causing severe disease in immunocompromised individuals and in susceptible tissues such as the lungs during acute infection.
 
-Using a dataset designed to profile global immune transcriptional responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
+Using a dataset designed to profile global immune gene expression responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
 
 ## Pipeline summary
 
@@ -55,11 +55,11 @@ The DKO mice carry a homozygous deletion of the interferon receptors Ifngr (Ifng
 
 ### Quality Control
 
-The lung data set contain 15 samples which with paired-end fastq file and a README file containing metadata about each sample. To assess the quality control of our data set, we use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) , a tools using to assess quality of fastq files. For each sample, FastQC gives a report (html) and some additional data in a archive. These archives are using by [MultQC](https://github.com/MultiQC/MultiQC) to merge the quality report of each fastq file in only one report (html).
+The lung dataset contains 15 samples which with paired-end fastq file and a README file containing metadata about each sample. To assess the quality control of our data set, we use [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) , a tool using to assess quality of fastq files. For each sample, FastQC gives a report (html) and some additional data in a archive. These archives are used by [MultQC](https://github.com/MultiQC/MultiQC) to merge the quality report of each fastq file in only one report (html).
 
 ### **Map reads to the reference genome**
 
-In this step of our analysis workflow we used [Hisat2](http://daehwankimlab.github.io/hisat2/) to align our paired-end sequences to the reference (Mus Musculus GRCm39.115) downloader from [Ensembl ftp site](https://www.ensembl.org/info/data/ftp/index.html).  In this particular step, we first did indexing of the reference using Hisat2, then for each sample we align the reads from fastq file to the reference. The results Sam files (one per sample) are use as input in [Samtools view](http://www.htslib.org/doc/samtools.html) to convert them into Bam files. After obtaining the Bam files, the next steps are sorting Bam files and indexing the sorted Bam files. 
+In this step of our analysis workflow we used [Hisat2](http://daehwankimlab.github.io/hisat2/) to align our paired-end sequences to the reference (Mus Musculus GRCm39.115) downloaded from [Ensembl ftp site](https://www.ensembl.org/info/data/ftp/index.html).  In this particular step, we first did indexing of the reference using Hisat2, then for each sample we align the reads from fastq file to the reference. The results Sam files (one per sample) are use as input in [Samtools view](http://www.htslib.org/doc/samtools.html) to convert them into Bam files. After obtaining the Bam files, the next steps are sorting Bam files and indexing the sorted Bam files. 
 
 In addition to quality report given by Hisat2 during the alignment, we also get other information with [Samtools stats](http://www.htslib.org/doc/samtools.html) and [Samtools coverage](http://www.htslib.org/doc/samtools.html) to assess how the alignment was performed.
 
@@ -97,7 +97,7 @@ Below we are going to answer to all question about quality control of our 15
 
 **Question 1 :** How many reads do we have per sample?
 
-For each sample, the total number of reads is the same for the 2 pairs. If we considerate only one mate for each sample, the range of the total number of reads is from 31.6M to 54.7M. More than the half of our data set have less than 40M of reads (53.33%). The second bigger part is between 40M still 50M, where we have 40% of our same. There is only one sample with the total of reads more than 50M (**SRR7821924**).
+For each sample, the total number of reads is the same for the 2 pairs. If we considerate only one mate for each sample, the range of the total number of reads is from 31.6M to 54.7M. More than half of our data set have less than 40M of reads (53.33%). The second bigger part is between 40M still 50M, where we have 40% of our same. There is only one sample with more than 50M reads (**SRR7821924**).
 
 <img height="650" src="./imgs/general_stats_table.png" width="1500"/>
 
@@ -140,7 +140,7 @@ Tab. 1 : General statistics of mapping to reference given by samtools
 
 **Concordant alignment** refers to paired-end reads that are aligned so that their orientations are consistent and respect the expected spatial relationship. 
 
-Looking through the alignment statistics for Hisat2, we draw the plot below that represent the proportion of concordant alignment in each sample. As we can see here, across all our samples, there are in average 87% of reads aligned concordantly exactly 1 time. That means that around 87% of the sequence pairs (reads) for each sample have been mapped onto the reference genome at locations that are correct and consistent with the expected relative orientation and distance between the two reads of each pair.
+Based on HISAT2 alignment statistics, we generated the plot below that represent the proportion of concordant alignment in each sample. As we can see here, across all our samples, there are in average 87% of reads aligned concordantly exactly 1 time. That means that around 87% of the sequence pairs (reads) for each sample have been mapped onto the reference genome at locations that are correct and consistent with the expected relative orientation and distance between the two reads of each pair.
 
 <img height="650" src="./imgs/image.png" width="1500"/>
 
@@ -300,7 +300,7 @@ Question 2 : Briefly discuss your results based on what you know about these sam
 1. *T. gondii* infection requires a robust IFN response (A) that is completely dependent on both IFNAR and IFNGR signaling (D)
 2. Constitutive tonic activity: even in the absence of infection, IFN pathways maintain baseline expression of defense genes (B)
 3. Failure of compensation: in the absence of both IFN signaling pathways, infection cannot induce an effective compensatory response (C)
-4. Obligatory synergy: comparison D demonstrates that protective transcriptional programs ABSOLUTELY require both types of IFN—neither can compensate for the absence of the other
+4. Obligatory synergy: comparison D demonstrates that protective transcriptional programs require both types of IFN—neither can compensate for the absence of the other
 5. Functional coupling: interferon response and antigen presentation are inextricably linked, forming an integrated defense module against intracellular pathogens
 
 <img height="650" src="./imgs/image_5.png" width="1500"/>
@@ -356,3 +356,14 @@ Fig. 10 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas 
     |── [R script]
     └── [bash script]
 ```
+## Requirements
+
+- **FastQC** : v0.12.1
+- **Hisat2** : v2.2.1
+- **Samtools** : v1.20
+- **featureCounts** : v2.0.6
+- **Rtracklayer** : v1.66.0
+- **DESeq2** : v1.46.8
+- **DESeq2** : v1.45.3
+- **MultiQC** : v1.12
+- **clusterProfiler** : v4.12.6
