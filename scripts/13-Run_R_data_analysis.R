@@ -200,6 +200,9 @@ res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
 
+## Store all genes ID
+WT_control_case_all_genes <- rownames(res_WT_control_case)
+
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
 res_WT_control_case <- subset(res_WT_control_case, padj< 0.05 & abs(log2FoldChange)>1 )
 
@@ -230,6 +233,9 @@ res_control_WT_DK <- res_control_WT_DK[!is.na(res_control_WT_DK$padj),]
 
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
+
+## Store all genes ID
+control_WT_DK_all_genes <- rownames(res_control_WT_DK)
 
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
 res_control_WT_DK <- subset(res_control_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
@@ -264,6 +270,9 @@ res_WT_control_DK_case <- res_WT_control_DK_case[!is.na(res_WT_control_DK_case$p
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
 
+## Store all genes ID
+WT_control_DK_case_all_genes <- rownames(res_WT_control_DK_case)
+
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
 res_WT_control_DK_case <- subset(res_WT_control_DK_case, padj< 0.05 & abs(log2FoldChange)>1)
 
@@ -295,6 +304,9 @@ res_case_WT_DK <- res_case_WT_DK[!is.na(res_case_WT_DK$padj),]
 
 ## Check again the proportion of missing values (NA) in results
 100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
+
+## Store all genes ID
+case_WT_DK_all_genes <- rownames(res_case_WT_DK)
 
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
 res_case_WT_DK <- subset(res_case_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
@@ -348,39 +360,15 @@ named_foldChange <- function(de_results, gene_detail) {
 }
 
 ## List of GO Description related to our study base on the original publication
-GO_module_L5 <- c(
-  "type I interferon production",
-  "response to type I interferon",
-  "type I interferon-mediated signaling pathway",
-  "cellular response to type I interferon",
-  "regulation of type I interferon production",
-  "positive regulation of type I interferon production",
-  "negative regulation of type I interferon production",
-  "regulation of type I interferon-mediated signaling pathway",
-  "positive regulation of type I interferon-mediated signaling pathway",
-  "negative regulation of type I interferon-mediated signaling pathway"
-)
+GO_module_L5 <- "response to type I interferon"
 
-GO_module_L7 <- c(
-  "response to type II interferon",
-  "type II interferon production",
-  "regulation of type II interferon production",
-  "cellular response to type II interferon",
-  "positive regulation of type II interferon production",
-  "T-helper 1 type immune response",
-  "regulation of T-helper 1 type immune response",
-  "negative regulation of type II interferon production",
-  "type II interferon-mediated signaling pathway",
-  "regulation of response to type II interferon",
-  "regulation of type II interferon-mediated signaling pathway",
-  "positive regulation of T-helper 1 type immune response"
-)
+GO_module_L7 <- "antigen processing and presentation"
 
 # Contrast 1 :
 ## Run overrepresentation analysis
 ego_WT_control_case <- enrichGO(gene = WT_control_case_DE, OrgDb = org.Mm.eg.db, 
                                 keyType = "ENSEMBL", ont="BP", readable=TRUE,
-                                pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+                                pvalueCutoff  = 0.01,qvalueCutoff  = 0.05, universe = WT_control_case_all_genes)
 
 top <- 10
 ## Plot the top 10 GO terms detected in the overrepresentation analysis
@@ -390,23 +378,16 @@ p1 <- dotplot(ego_WT_control_case, showCategory=top, font.size=8)+
 ## Plot cnetplot 
 fc <- named_foldChange(res_WT_control_case, gene.detail)
 
-### For Type I IFN/Ifit/Oas
-g1 <- cnetplot(ego_WT_control_case, node_label = "gene",
+h1 <- cnetplot(ego_WT_control_case, node_label = "all",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+ 
-  ggtitle("WT control vs WT case")
-
-### For Ifng/Gbp/Antigen presentation
-h1 <- cnetplot(ego_WT_control_case, node_label = "gene",
-               color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+ 
+               cex.params= list(gene_label=0.5), showCategory= c(GO_module_L5, GO_module_L7))+ 
   ggtitle("WT control vs WT case")
 
 # Contrast 2 :
 ## Run overrepresentation analysis
 ego_control_WT_DK <- enrichGO(gene = control_WT_DK_DE, OrgDb = org.Mm.eg.db, 
                               keyType = "ENSEMBL", ont="BP", readable=TRUE,
-                              pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+                              pvalueCutoff  = 0.01,qvalueCutoff  = 0.05, universe = control_WT_DK_all_genes)
 
 ## Plot the top 10 GO terms detected in the overrepresentation analysis
 p2 <- dotplot(ego_control_WT_DK, showCategory=top, font.size=8)+ 
@@ -415,23 +396,16 @@ p2 <- dotplot(ego_control_WT_DK, showCategory=top, font.size=8)+
 ## Plot cnetplot
 fc <- named_foldChange(res_control_WT_DK, gene.detail)
 
-### For Type I IFN/Ifit/Oas
-g2 <- cnetplot(ego_control_WT_DK, node_label = "gene",
+h2 <- cnetplot(ego_control_WT_DK, node_label = "all",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
-  ggtitle("WT control vs DK control")
-
-### For Ifng/Gbp/Antigen presentation
-h2 <- cnetplot(ego_control_WT_DK, node_label = "gene",
-               color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+
+               cex.params= list(gene_label=0.5), showCategory= c(GO_module_L5, GO_module_L7))+
   ggtitle("WT control vs DK control")
 
 # Contrast 3 :
 ## Run overrepresentation analysis
 ego_WT_control_DK_case <- enrichGO(gene = WT_control_DK_case_DE, OrgDb = org.Mm.eg.db, 
                                    keyType = "ENSEMBL", ont="BP", readable=TRUE,
-                                   pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+                                   pvalueCutoff  = 0.01,qvalueCutoff  = 0.05, universe = WT_control_DK_case_all_genes)
 
 ## Plot the top 10 GO terms detected in the overrepresentation analysis
 p3 <- dotplot(ego_WT_control_DK_case, showCategory=top, font.size=8)+ 
@@ -440,23 +414,17 @@ p3 <- dotplot(ego_WT_control_DK_case, showCategory=top, font.size=8)+
 ## Plot cnetplot
 fc <- named_foldChange(res_WT_control_DK_case, gene.detail)
 
-### For Type I IFN/Ifit/Oas
-g3 <- cnetplot(ego_WT_control_DK_case, node_label = "gene",
-               color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
-  ggtitle("WT control vs DKO case")
-
 ### For Ifng/Gbp/Antigen presentation
-h3 <- cnetplot(ego_WT_control_DK_case, node_label = "gene",
+h3 <- cnetplot(ego_WT_control_DK_case, node_label = "all",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+
+               cex.params= list(gene_label=0.5), showCategory= c(GO_module_L5, GO_module_L7))+
   ggtitle("WT control vs DKO case")
 
 # Contrast 4 :
 ## Run overrepresentation analysis
 ego_case_WT_DK <- enrichGO(gene = case_WT_DK_DE, OrgDb = org.Mm.eg.db, 
                            keyType = "ENSEMBL", ont="BP", readable=TRUE,
-                           pvalueCutoff  = 0.01,qvalueCutoff  = 0.05)
+                           pvalueCutoff  = 0.01,qvalueCutoff  = 0.05, , universe = gene.detail$gene_id)
 
 ## Plot the top 10 GO terms detected in the overrepresentation analysis
 p4 <- dotplot(ego_case_WT_DK, showCategory=top, font.size=8)+ 
@@ -465,16 +433,9 @@ p4 <- dotplot(ego_case_WT_DK, showCategory=top, font.size=8)+
 ## Plot cnetplot
 fc <- named_foldChange(res_case_WT_DK, gene.detail)
 
-### For Type I IFN/Ifit/Oas
-g4 <- cnetplot(ego_case_WT_DK, node_label = "gene",
+h4 <- cnetplot(ego_case_WT_DK, node_label = "all",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
-  ggtitle("WT case vs DKO case")
-
-### For Ifng/Gbp/Antigen presentation
-h4 <- cnetplot(ego_case_WT_DK, node_label = "gene",
-               color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
+               cex.params= list(gene_label=0.5), showCategory= c(GO_module_L5, GO_module_L7))+
   ggtitle("WT case vs DKO case")
 
 png("results/summary/DE_Analysis/plots/ORA_dotplot.png", width = 1380, height = 735)
@@ -482,13 +443,8 @@ plot_list(p1, p2, p3, p4,
           tag_levels = "A")
 dev.off()
 
-png("results/summary/DE_Analysis/plots/ORA_cnetplot_module_L5.png", width = 1380, height = 735)
-plot_list(g1, g2, g3, g4,
-          tag_levels = "A")
-dev.off()
 
-
-png("results/summary/DE_Analysis/plots/ORA_cnetplot_module_L7.png", width = 1380, height = 735)
+png("results/summary/DE_Analysis/plots/ORA_cnetplot_module_L5_L7.png", width = 1380, height = 735)
 plot_list(h1, h2, h3, h4,
           tag_levels = "A")
 dev.off()

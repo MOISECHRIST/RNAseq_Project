@@ -65,7 +65,7 @@ The second result of featureCounts is a summary text file. This summary text fi
 
 ### Exploratory data analysis
 
-At this stage of the analysis, the featureCounts results, together with the sample metadata, were integrated into a DESeqDataSet object using the DESeq2 package (v1.46.0). A Variance Stabilizing Transformation (VST) was then applied to the count matrix, without considering the experimental groups (blind=TRUE).
+At this stage of the analysis, the featureCounts results, together with the sample metadata, were integrated into a DESeqDataSet object using the [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) package (v1.46.0). A Variance Stabilizing Transformation (VST) was then applied to the count matrix, without considering the experimental groups (blind=TRUE).
 The resulting VST-normalized matrix was used for Principal Component Analysis (PCA), focusing on the 500 most variable genes, to visualize how the samples cluster based on their gene expression profiles.
 
 ### Differential expression analysis
@@ -263,11 +263,7 @@ Fig. 8 : The top 10 GO terms detected per pairwise comparisons
 
 <img height="650" src="./imgs/image_5.png" width="800"/>
 
-Fig. 9 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas
-
-<img height="650" src="./imgs/image_6.png" width="800"/>
-
-Fig. 10 : Gene connect network per pairwise comparisons for Ifng/Gbp/Antigen presentation
+Fig. 9 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas and Ifng/Gbp/Antigen presentation
 
 ## Project structure
 
