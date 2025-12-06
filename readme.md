@@ -99,7 +99,7 @@ Below we are going to answer to all question about quality control of our 15
 
 For each sample, the total number of reads is the same for the 2 pairs. If we considerate only one mate for each sample, the range of the total number of reads is from 31.6M to 54.7M. More than the half of our data set have less than 40M of reads (53.33%). The second bigger part is between 40M still 50M, where we have 40% of our same. There is only one sample with the total of reads more than 50M (**SRR7821924**).
 
-<img height="650" src="./imgs/general_stats_table.png" width="800"/>
+<img height="650" src="./imgs/general_stats_table.png" width="1500"/>
 
 Fig. 1 : General statistics of raw FASTQs quality assessment 
 
@@ -107,7 +107,7 @@ Fig. 1 : General statistics of raw FASTQs quality assessment
 
 As we can see in the plot below, all our reads have the length of 75bp, and the quality of each position is in the green part, which indicate that, our reads have a good average quality and we do not need to clean these reads in term of quality.
 
-<img height="650" src="./imgs/fastqc_per_base_sequence_quality_plot.png" width="800"/>
+<img height="650" src="./imgs/fastqc_per_base_sequence_quality_plot.png" width="1500"/>
 
 Fig. 2 : Plot of average quality along the length of reads
 
@@ -115,7 +115,7 @@ Fig. 2 : Plot of average quality along the length of reads
 
 The plot below that, adapters are present only from 55bp and the percentage of reads are less than 1%. With this low level of adapter, we do not really need to remove them.
 
-<img height="650" src="./imgs/fastqc_adapter_content_plot.png" width="800"/>
+<img height="650" src="./imgs/fastqc_adapter_content_plot.png" width="1500"/>
 
 Fig. 3 : Adapter content 
 
@@ -134,7 +134,7 @@ The table below present general statistics of the mapping. The column % Mapped s
 
 Tab. 1 : General statistics of mapping to reference given by samtools
 
-<img height="650" src="./imgs/Screenshot 2025-11-22 at 13.53.41.png" width="800"/>
+<img height="650" src="./imgs/Screenshot 2025-11-22 at 13.53.41.png" width="1500"/>
 
 **Question 2 :** What is concordant alignment and how many reads are concordantly aligned in the different samples?
 
@@ -142,7 +142,7 @@ Tab. 1 : General statistics of mapping to reference given by samtools
 
 Looking through the alignment statistics for Hisat2, we draw the plot below that represent the proportion of concordant alignment in each sample. As we can see here, across all our samples, there are in average 87% of reads aligned concordantly exactly 1 time. That means that around 87% of the sequence pairs (reads) for each sample have been mapped onto the reference genome at locations that are correct and consistent with the expected relative orientation and distance between the two reads of each pair.
 
-<img height="650" src="./imgs/image.png" width="800"/>
+<img height="650" src="./imgs/image.png" width="1500"/>
 
 Fig. 4 : Distribution of concordant alignment across samples
 
@@ -158,7 +158,7 @@ Consequently, this 5.6% of data will be lost for expression analysis, leading 
 
 The figure 5 below shows the percentage of reads assigned to exons (Assigned) and other information, such as the percentage of unmapped reads (Unassigned: Unmapped), the percentage of multimapped reads (Unassigned: Multi Mapping), the percentage of reads mapped on introns (Unassigned: No Features), and the percentage of reads those aligning equally well on multiple loci (Unassigned: Ambiguity).
 
-<img height="650" src="./imgs/featureCounts_assignment_plot.png" width="800"/>
+<img height="650" src="./imgs/featureCounts_assignment_plot.png" width="1500"/>
 
 Fig. 5 : featureCounts : assignment reads to exons 
 
@@ -176,7 +176,7 @@ The inability to unambiguously assign reads to a specific gene is a key challeng
 
 **Question 1 :** In some way, visualise how the samples cluster based on their gene expression profiles
 
-<img height="650" src="./imgs/image_2.png" width="800"/>
+<img height="650" src="./imgs/image_2.png" width="1500"/>
 
 Fig. 6 : Principal Component Analysis (PCA) plot of the samples
 
@@ -238,7 +238,7 @@ Tab. 2 : Selected pairwise comparisons
 To keep only differentially expressed genes which are both statistically significant and biologically relevant (a sufficient change in expression to be interesting), genes with padj < 5% and Log2FoldChange > 1 or Log2FoldChange < -1 were selected for the next steps of our analysis. 
 The following figure represent for each pairwise comparison, the number of differentially expressed genes, the up-regulated genes (log2FC > 1) and the down-regulated genes (log2FC < -1).
 
-<img height="650" src="./imgs/image_6.png" width="800"/>
+<img height="650" src="./imgs/image_6.png" width="1500"/>
 
 Fig. 7 : Differentially Expressed Genes Summary
 
@@ -259,7 +259,7 @@ Ifit1 (along with related genes Ifit3, Oas1a, etc.) belongs to the same L5 modul
 
 This gene belongs to the L7 module (IFN-γ) and is essential for antigen presentation, a key immune process. Tap1 serves as a control for the IFN-γ pathway. Its expression was only affected by the absence of its cognate receptor (Ifngr⁻/⁻), confirming the independence of the L7 pathway from the Type I IFN pathway. Additionally, it also exhibited tonic activity (reduced baseline expression in uninfected Ifngr⁻/⁻ mice), demonstrating the basal vigilance of the IFN-γ pathway.
 
-<img height="650" src="./imgs/image_3.png" width="800"/>
+<img height="650" src="./imgs/image_3.png" width="1500"/>
 
 Fig. 8 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes upon infection in Wild-type versus Double Knockout mice
 
@@ -281,7 +281,7 @@ The top GO terms detected in the overrepresentation analysis are mainly related 
 These enrichments highlight both infection-induced immune activation in wild-type mice and profound immune dysregulation caused by the double knockout, particularly affecting interferon and innate immunity pathways.
 
 
-<img height="650" src="./imgs/image_4.png" width="800"/>
+<img height="650" src="./imgs/image_4.png" width="1500"/>
 
 Fig. 9 : The top 10 GO terms detected per pairwise comparisons 
 
@@ -303,7 +303,7 @@ Question 2 : Briefly discuss your results based on what you know about these sam
 4. Obligatory synergy: comparison D demonstrates that protective transcriptional programs ABSOLUTELY require both types of IFN—neither can compensate for the absence of the other
 5. Functional coupling: interferon response and antigen presentation are inextricably linked, forming an integrated defense module against intracellular pathogens
 
-<img height="650" src="./imgs/image_5.png" width="800"/>
+<img height="650" src="./imgs/image_5.png" width="1500"/>
 
 Fig. 10 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas and Ifng/Gbp/Antigen presentation
 
