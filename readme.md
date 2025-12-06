@@ -34,6 +34,9 @@ chmod u+x main.sh
 ```bash
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
+## Analysis workflow
+
+<img height="650" src="./imgs/workflow.png" width="800"/>
 
 ## Method and materials
 
