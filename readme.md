@@ -308,7 +308,7 @@ Question 2 : Briefly discuss your results based on what you know about these sam
 
 **Fig. 10D:** This comparison demonstrates the dramatic impact of absent IFN signaling during infection: infected DKO mice fail to induce the defense transcriptional programs observed in infected wild-type mice. Nearly all interferon response and antigen presentation genes are repressed.
 
-**MAIN CONCLUSIONS**
+Main conclusions :
 
 1. *T. gondii* infection requires a robust IFN response (A) that is completely dependent on both IFNAR and IFNGR signaling (D)
 2. Constitutive tonic activity: even in the absence of infection, IFN pathways maintain baseline expression of defense genes (B)
