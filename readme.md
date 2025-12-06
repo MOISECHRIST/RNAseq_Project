@@ -6,11 +6,13 @@ This project investigates the pulmonary immune response to *Toxoplasma gondii* i
 
 Using a dataset designed to profile global immune transcriptional responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
 
-## Analysis workflow
+## Pipeline summary
 
 <img height="650" src="./imgs/workflow.png" width="800"/>
 
-## Installation
+## Usage
+
+### Clone repository 
 
 ```bash
 #In your computer
@@ -26,15 +28,15 @@ git clone git@github.com:MOISECHRIST/RNAseq_Project.git /data/user/${USER}/RNAse
 cd /data/user/${USER}/RNAseq_Project
 ```
 
-## Run analysis
+### Run analysis
 
-### Step 1 : in the HPC (IBU) part 
+- Step 1 : in the IBU's HPC 
 ```bash
 chmod u+x main.sh
 ./main.sh
 ```
 
-### Step 2 : R data analysis
+- Step 2 : R data analysis (your computer)
 ```bash
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
