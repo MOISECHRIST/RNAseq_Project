@@ -265,6 +265,16 @@ Overall, this pattern suggests that the induction of these interferon-responsive
 
 Question 1 : What are the top GO terms detected in the overrepresentation analysis ?
 
+The top GO terms detected in the overrepresentation analysis are mainly related to immune responses, including:
+
+- adaptive and innate immune responses,
+- defense responses to bacteria and viruses,
+- leukocyte activation, proliferation and migration,
+- interferon-mediated signaling pathways.
+
+These enrichments highlight both infection-induced immune activation in wild-type mice and profound immune dysregulation caused by the double knockout, particularly affecting interferon and innate immunity pathways.
+
+
 <img height="650" src="./imgs/image_4.png" width="800"/>
 
 Fig. 9 : The top 10 GO terms detected per pairwise comparisons 
