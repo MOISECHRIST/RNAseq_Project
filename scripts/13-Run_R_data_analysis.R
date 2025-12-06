@@ -32,8 +32,8 @@ if (!require("BiocManager", quietly = TRUE)) {
 }
 
 cran_packages <- c(
-  "conflicted", "vsn", "pheatmap", "ggplot2", 
-  "ggrepel", "cowplot", "RColorBrewer", "patchwork"
+  "conflicted", "vsn", "pheatmap", "ggplot2", "tidyr",
+  "ggrepel", "cowplot", "RColorBrewer", "patchwork", "dplyr"
 )
 
 bioc_packages <- c(
@@ -72,6 +72,8 @@ library(cowplot)
 library("RColorBrewer")
 library(enrichplot)
 library(patchwork)
+library(tidyr)
+library(dplyr)
 
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
@@ -340,7 +342,41 @@ regulated_genes <- data.frame(num_up=c(length(WT_control_case_up_reg_genes),
                                 "WT control vs DKO case", "WT case vs DKO case"))
 
 print(regulated_genes)
+write.csv(regulated_genes, "results/summary/DE_Analysis/regulated_genes.csv", row.names =TRUE)
 
+regulated_genes$comparison <- rownames(regulated_genes)
+
+regulated_long <- regulated_genes %>%
+  dplyr::select(comparison, num_up, num_down)%>%
+  pivot_longer(
+    cols = c(num_up, num_down),
+    names_to = "regulation",
+    values_to = "count"
+  )
+
+regulated_long$regulation <- recode(
+  regulated_long$regulation,
+  num_up = "Up-regulated",
+  num_down = "Down-regulated"
+)
+
+pdf("results/summary/DE_Analysis/plots/number_regulated_gene.pdf")
+ggplot(regulated_long,
+       aes(x = comparison, y = count, fill = regulation)) +
+  geom_bar(stat = "identity") +
+  geom_text(
+    aes(label = count),
+    position = position_stack(vjust = 0.5),
+    color = "white",
+    size = 3
+  ) +
+  labs(
+    x = "Comparison",
+    y = "Number of genes"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+dev.off()
 
 ##------------------------------------------------------------------------
 ## Step 6 : Overrepresentation analysis
