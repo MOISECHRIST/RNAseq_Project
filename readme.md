@@ -6,6 +6,10 @@ This project investigates the pulmonary immune response to *Toxoplasma gondii* i
 
 Using a dataset designed to profile global immune transcriptional responses across multiple pathogens, we focus here on comparing wild-type mice with double-knockout (IFNAR⁻/⁻ IFNGR⁻/⁻) mice to assess the contribution of type I and type II interferon signaling pathways to lung immunity during *T. gondii* infection.
 
+## Analysis workflow
+
+<img height="650" src="./imgs/workflow.png" width="800"/>
+
 ## Installation
 
 ```bash
@@ -34,9 +38,6 @@ chmod u+x main.sh
 ```bash
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
-## Analysis workflow
-
-<img height="650" src="./imgs/workflow.png" width="800"/>
 
 ## Method and materials
 
