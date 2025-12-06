@@ -348,10 +348,33 @@ named_foldChange <- function(de_results, gene_detail) {
 }
 
 ## List of GO Description related to our study base on the original publication
-list_GO_desc <- c("response to type II interferon", "cellular response to type II interferon",
-                  "type II interferon-mediated signaling pathway", 
-                  "response to type I interferon", "cellular response to type I interferon", 
-                  "type I interferon-mediated signaling pathway")
+GO_module_L5 <- c(
+  "type I interferon production",
+  "response to type I interferon",
+  "type I interferon-mediated signaling pathway",
+  "cellular response to type I interferon",
+  "regulation of type I interferon production",
+  "positive regulation of type I interferon production",
+  "negative regulation of type I interferon production",
+  "regulation of type I interferon-mediated signaling pathway",
+  "positive regulation of type I interferon-mediated signaling pathway",
+  "negative regulation of type I interferon-mediated signaling pathway"
+)
+
+GO_module_L7 <- c(
+  "response to type II interferon",
+  "type II interferon production",
+  "regulation of type II interferon production",
+  "cellular response to type II interferon",
+  "positive regulation of type II interferon production",
+  "T-helper 1 type immune response",
+  "regulation of T-helper 1 type immune response",
+  "negative regulation of type II interferon production",
+  "type II interferon-mediated signaling pathway",
+  "regulation of response to type II interferon",
+  "regulation of type II interferon-mediated signaling pathway",
+  "positive regulation of T-helper 1 type immune response"
+)
 
 # Contrast 1 :
 ## Run overrepresentation analysis
@@ -366,9 +389,17 @@ p1 <- dotplot(ego_WT_control_case, showCategory=top, font.size=8)+
 
 ## Plot cnetplot 
 fc <- named_foldChange(res_WT_control_case, gene.detail)
+
+### For Type I IFN/Ifit/Oas
 g1 <- cnetplot(ego_WT_control_case, node_label = "gene",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+ 
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+ 
+  ggtitle("WT control vs WT case")
+
+### For Ifng/Gbp/Antigen presentation
+h1 <- cnetplot(ego_WT_control_case, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+ 
   ggtitle("WT control vs WT case")
 
 # Contrast 2 :
@@ -383,9 +414,17 @@ p2 <- dotplot(ego_control_WT_DK, showCategory=top, font.size=8)+
 
 ## Plot cnetplot
 fc <- named_foldChange(res_control_WT_DK, gene.detail)
+
+### For Type I IFN/Ifit/Oas
 g2 <- cnetplot(ego_control_WT_DK, node_label = "gene",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
+  ggtitle("WT control vs DK control")
+
+### For Ifng/Gbp/Antigen presentation
+h2 <- cnetplot(ego_control_WT_DK, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+
   ggtitle("WT control vs DK control")
 
 # Contrast 3 :
@@ -400,9 +439,17 @@ p3 <- dotplot(ego_WT_control_DK_case, showCategory=top, font.size=8)+
 
 ## Plot cnetplot
 fc <- named_foldChange(res_WT_control_DK_case, gene.detail)
+
+### For Type I IFN/Ifit/Oas
 g3 <- cnetplot(ego_WT_control_DK_case, node_label = "gene",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
+  ggtitle("WT control vs DKO case")
+
+### For Ifng/Gbp/Antigen presentation
+h3 <- cnetplot(ego_WT_control_DK_case, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L7)+
   ggtitle("WT control vs DKO case")
 
 # Contrast 4 :
@@ -417,20 +464,32 @@ p4 <- dotplot(ego_case_WT_DK, showCategory=top, font.size=8)+
 
 ## Plot cnetplot
 fc <- named_foldChange(res_case_WT_DK, gene.detail)
+
+### For Type I IFN/Ifit/Oas
 g4 <- cnetplot(ego_case_WT_DK, node_label = "gene",
                color.params = list(foldChange = fc),
-               cex.params= list(gene_label=0.5), showCategory= list_GO_desc)+
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
   ggtitle("WT case vs DKO case")
 
-
+### For Ifng/Gbp/Antigen presentation
+h4 <- cnetplot(ego_case_WT_DK, node_label = "gene",
+               color.params = list(foldChange = fc),
+               cex.params= list(gene_label=0.5), showCategory= GO_module_L5)+
+  ggtitle("WT case vs DKO case")
 
 png("results/summary/DE_Analysis/plots/ORA_dotplot.png", width = 1380, height = 735)
 plot_list(p1, p2, p3, p4,
           tag_levels = "A")
 dev.off()
 
-png("results/summary/DE_Analysis/plots/ORA_cnetplot.png", width = 1380, height = 735)
+png("results/summary/DE_Analysis/plots/ORA_cnetplot_module_L5.png", width = 1380, height = 735)
 plot_list(g1, g2, g3, g4,
+          tag_levels = "A")
+dev.off()
+
+
+png("results/summary/DE_Analysis/plots/ORA_cnetplot_module_L7.png", width = 1380, height = 735)
+plot_list(h1, h2, h3, h4,
           tag_levels = "A")
 dev.off()
 

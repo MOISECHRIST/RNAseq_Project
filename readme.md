@@ -263,7 +263,11 @@ Fig. 8 : The top 10 GO terms detected per pairwise comparisons
 
 <img height="650" src="./imgs/image_5.png" width="800"/>
 
-Fig. 9 : Gene connect network per pairwise comparisons 
+Fig. 9 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas
+
+<img height="650" src="./imgs/image_6.png" width="800"/>
+
+Fig. 10 : Gene connect network per pairwise comparisons for Ifng/Gbp/Antigen presentation
 
 ## Project structure
 
