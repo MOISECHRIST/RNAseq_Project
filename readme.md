@@ -41,6 +41,19 @@ chmod u+x main.sh
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
 
+## Requirements
+
+| Category              | Tool / Package       | Version |
+|-----------------------|----------------------|---------|
+| Quality control       | FastQC               | v0.12.1 |
+| Quality control       | MultiQC              | v1.32   |
+| Read alignment        | HISAT2               | v2.2.1  |
+| Alignment processing  | SAMtools             | v1.20   |
+| Read quantification   | featureCounts        | v2.0.6  |
+| R package             | Rtracklayer          | v1.66.0 |
+| R package | DESeq2               | v1.46.0 |
+| R package  | clusterProfiler      | v4.12.6 |
+
 ## Method and materials
 
 ### Data set 
@@ -356,14 +369,3 @@ Fig. 10 : Gene connect network per pairwise comparisons for Type I IFN/Ifit/Oas 
     |── [R script]
     └── [bash script]
 ```
-## Requirements
-
-- **FastQC** : v0.12.1
-- **Hisat2** : v2.2.1
-- **Samtools** : v1.20
-- **featureCounts** : v2.0.6
-- **Rtracklayer** : v1.66.0
-- **DESeq2** : v1.46.8
-- **DESeq2** : v1.45.3
-- **MultiQC** : v1.12
-- **clusterProfiler** : v4.12.6
