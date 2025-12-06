@@ -74,6 +74,13 @@ To retain only differentially expressed genes that are both statistically signif
 
 ### Overrepresentation analysis
 
+In the final step of our analysis, we used the [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) package (v. 4.12.6) to identify Gene Ontology (GO) biological processes that are significantly enriched for differentially expressed genes beyond what would be expected by chance. GO enrichment analysis was performed using the `enrichGO` function for each pairwise comparison, with the following parameters:
+
+- keyType = "ENSEMBL" to specify gene identifiers,
+- OrgDb = org.Mm.eg.db for mouse gene annotation,
+- ont = "BP" to restrict the analysis to the Biological Process subontology,
+- and the set of genes tested in each pairwise comparison used as the background universe.
+
 ## Results 
 
 Presented below are the results of the analyses performed on the lung dataset, along with the answers to the various questions asked at each stage of the project.
@@ -255,11 +262,19 @@ This gene belongs to the L7 module (IFN-γ) and is essential for antigen present
 
 Fig. 7 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes upon infection in Wild-type versus Double Knockout mice
 
+Figure 7 illustrates the expression patterns of the three selected genes (*Mx1*, *Ifit1*, and *Tap1*) across experimental conditions and genotypes. In wild-type mice, infection is associated with a clear increase in gene expression compared to control samples for all three genes. In contrast, within the double-knockout group, gene expression remains largely unchanged or is reduced in infected samples, with a decrease observed for two out of the three genes.
+
+Overall, this pattern suggests that the induction of these interferon-responsive genes upon infection depends on intact type I and type II interferon signaling pathways, which are disrupted in the IFNGR/IFNAR double-knockout mice.
+
 ### **Overrepresentation analysis**
+
+Question 1 : What are the top GO terms detected in the overrepresentation analysis ?
 
 <img height="650" src="./imgs/image_4.png" width="800"/>
 
 Fig. 8 : The top 10 GO terms detected per pairwise comparisons 
+
+Question 2 : Briefly discuss your results based on what you know about these samples, e.g. from the original publication.
 
 <img height="650" src="./imgs/image_5.png" width="800"/>
 
