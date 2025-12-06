@@ -281,7 +281,21 @@ Fig. 9 : The top 10 GO terms detected per pairwise comparisons
 
 Question 2 : Briefly discuss your results based on what you know about these samples, e.g. from the original publication.
 
-To investigate the transcriptional signatures induced by Toxoplasma gondii infection and the respective contributions of type I and type II interferon signaling, we performed gene ontology enrichment analysis on differentially expressed genes across four comparisons (Figure 10). Upon infection of wild-type mice (WT control vs WT case), we observed significant enrichment of genes associated with "response to type I interferon" (GO:0035455, p.adj = 0.001733703) and "antigen processing and presentation" (Figure 10A), with strong up-regulation of classical interferon-stimulated genes including Oas1a, Oas1g, Oas3, Ifit1, Mx2, Irf7, and Stat1/2, as well as MHC class I molecules (H2-Aa, H2-Ab1, H2-K1, H2-T22/23). Comparison of uninfected mice (WT control vs DK control) revealed constitutive down-regulation of both interferon response genes and antigen presentation machinery in double knockout mice (Figure 10B), indicating tonic activity of both IFNAR and IFNGR signaling pathways at steady state. Strikingly, infection of double knockout mice (WT control vs DKO case) failed to induce the robust type I interferon and antigen presentation signatures observed in wild-type infected mice (Figure 10C), demonstrating an absolute requirement for intact interferon signaling. Direct comparison of infected mice (WT case vs DKO case) revealed near-complete abrogation of interferon-responsive genes in the absence of both IFNAR and IFNGR signaling (Figure 10D), with dramatic downregulation of Oas family members, Ifit genes, Mx2, and MHC molecules, confirming that the protective transcriptional response to T. gondii is critically dependent on both type I and type II interferon pathways.
+**Fig. 10A:** Infection induces strong coordinated transcriptional activation of interferon response and antigen presentation machinery, suggesting a robust and integrated immune response.
+
+**Fig. 10B:** In the absence of infection, the double knockout already exhibits baseline downregulation of interferon response genes and antigen presentation machinery, revealing constitutive tonic activity of these signaling pathways under normal conditions.
+
+**Fig. 10C:** Infection in double knockout mice induces a highly attenuated and disorganized transcriptional response compared to wild-type mice, suggesting that the absence of IFN signaling prevents the mounting of an effective immune response.
+
+**Fig. 10D:** This comparison demonstrates the dramatic impact of absent IFN signaling during infection: infected DKO mice fail to induce the defense transcriptional programs observed in infected wild-type mice. Nearly all interferon response and antigen presentation genes are repressed.
+
+**MAIN CONCLUSIONS**
+
+1. *T. gondii* infection requires a robust IFN response (A) that is completely dependent on both IFNAR and IFNGR signaling (D)
+2. Constitutive tonic activity: even in the absence of infection, IFN pathways maintain baseline expression of defense genes (B)
+3. Failure of compensation: in the absence of both IFN signaling pathways, infection cannot induce an effective compensatory response (C)
+4. Obligatory synergy: comparison D demonstrates that protective transcriptional programs ABSOLUTELY require both types of IFN—neither can compensate for the absence of the other
+5. Functional coupling: interferon response and antigen presentation are inextricably linked, forming an integrated defense module against intracellular pathogens
 
 <img height="650" src="./imgs/image_5.png" width="800"/>
 
