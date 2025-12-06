@@ -8,7 +8,7 @@ Using a dataset designed to profile global immune transcriptional responses acro
 
 ## Pipeline summary
 
-<img height="650" src="./imgs/workflow.png" width="800"/>
+<img height="650" src="./imgs/workflow.png" width="1500"/>
 
 ## Usage
 
