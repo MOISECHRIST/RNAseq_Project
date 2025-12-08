@@ -27,36 +27,6 @@ setwd(path_to_working_dir)
 ##------------------------------------------------------------------------
 ## Step 2 : Import libraries 
 ##------------------------------------------------------------------------
-
-cran_packages <- c(
-  "conflicted", "vsn", "pheatmap", "ggplot2", "tidyr",
-  "ggrepel", "cowplot", "RColorBrewer", "patchwork", "dplyr"
-)
-
-bioc_packages <- c(
-  "DESeq2", "clusterProfiler", "org.Mm.eg.db", "enrichplot"
-)
-
-## Install CRAN packages
-for(pkg in cran_packages){
-  if(!requireNamespace(pkg, quietly = TRUE)){
-    install.packages(pkg, dependencies = TRUE)
-  }
-}
-
-## Install BiocManager
-if(!requireNamespace("BiocManager", quietly = TRUE)){
-  install.packages("BiocManager")
-}
-
-## Install Bioconductor packages 
-for(pkg in bioc_packages){
-  if(!requireNamespace(pkg, quietly = TRUE)){
-    BiocManager::install(pkg, ask = FALSE)
-  }
-}
-
-## Load packages
 library(conflicted)
 library("DESeq2")
 library("clusterProfiler")
