@@ -1,3 +1,9 @@
+**Autor :** *MEKA Moise Christian Junior*\
+**Email :** [*moisechristianjunior464\@gmail.com*](mailto:moisechristianjunior464@gmail.com)\
+**Institution :** *University of Bern - Switzerland*
+
+------------------------------------------------------------------------
+
 # RNAseq Project
 
 ## About the project 
