@@ -27,9 +27,6 @@ setwd(path_to_working_dir)
 ##------------------------------------------------------------------------
 ## Step 2 : Import libraries 
 ##------------------------------------------------------------------------
-if (!require("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
-}
 
 cran_packages <- c(
   "conflicted", "vsn", "pheatmap", "ggplot2", "tidyr",
