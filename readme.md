@@ -61,6 +61,8 @@ chmod u+x main.sh
 
 ``` bash
 Rscript ./scripts/13-Run_R_data_analysis.R $PWD
+
+##NOTE : Make sure you have copied the folder 'results/summary' from the cluster to your working directory.
 ```
 
 ## Requirements

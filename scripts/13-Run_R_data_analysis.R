@@ -9,7 +9,7 @@
 ##              -> Extract and analyse DE results,
 ##              -> Overrepresentation analysis.
 ## Creation date : 20-11-2025
-## Last Update : 20-11-2025
+## Last Update : 31-12-2025
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -23,6 +23,14 @@ if(file.exists(args[1])!=TRUE){
 path_to_working_dir <- args[1]
 
 setwd(path_to_working_dir)
+
+DIFF_EXP_MODEL_PATH <- "results/summary/DE_Analysis/differential_expression_model.RData"
+GENE_DETAIL_PATH <- "results/summary/DE_Analysis/Mus_musculus.GRCm39.115.csv"
+
+#First check if the requirement input are available 
+if(sum(c(file.exists(DIFF_EXP_MODEL_PATH), file.exists(GENE_DETAIL_PATH)))!=2){
+  stop("ERROR: Input file not provided. Make sure you have copied the folder 'results/summary' from the cluster to your working directory.", call.=FALSE)
+}
 
 ##------------------------------------------------------------------------
 ## Step 2 : Import libraries 
@@ -45,8 +53,8 @@ library(dplyr)
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
 ##------------------------------------------------------------------------
-load("results/summary/DE_Analysis/differential_expression_model.RData")
-gene.detail <- read.csv("results/summary/DE_Analysis/Mus_musculus.GRCm39.115.csv", 
+load(DIFF_EXP_MODEL_PATH)
+gene.detail <- read.csv(GENE_DETAIL_PATH, 
                         sep=",", header = T)
 
 #A glimpse of our data 
@@ -155,6 +163,8 @@ for(item in gene_id){
 
 plot_grid(plotlist = select_plots, nrow = 3)
 dev.off()
+
+
 # Contrast 1 : 
 # Answer to the question : Which genes respond to T. gondii infection in wild-type mice?
 res_WT_control_case <- results(dds, contrast = c("condition", "Case", "Control"))
