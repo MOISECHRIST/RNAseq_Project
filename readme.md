@@ -415,6 +415,14 @@ and the down-regulated genes (log2FC \< -1).
 
 Fig. 7 : Differentially Expressed Genes Summary
 
+The comparative transcriptomic analysis between wild-type (WT) and double knockout (DKO) mice reveals that *Toxoplasma gondii* infection induces a massive reprogramming of the host genome. However, the efficacy and specificity of this response depend critically on the integrity of the host genotype.
+
+- A discrete mutation under homeostatic conditions : the examination of the basal state (WT control vs. DK control) demonstrates that the double gene deletion only superficially alters the transcriptome at rest, with only 491 genes affected. This suggests that, under non-infectious conditions, the targeted genes are not essential for maintaining cellular homeostasis, or that genetic redundancy mechanisms compensate for their absence.
+- Infection as a catalyst for divergence : the contrast between the control and infected states (WT control vs. WT case) confirms the high virulence of *T. gondii*, triggering changes in the expression of over 6200 genes. This "normal" response is characterized by a high proportion of down-regulated genes (3667), likely reflecting a hijacking of host metabolism by the parasite or a cellular strategy to deprioritize non-essential functions in favor of defense. While the DKO mutant appears to show a global response of similar magnitude (6041 genes modified compared to the control), a fine-grained analysis proves that this response is dysfunctional.
+- The signature of DKO immune failure : the highlight of this study lies in the WT case vs. DKO case comparison. The fact that 3638 genes are differentially expressed between the two genotypes during infection (compared to only 491 in the healthy state) proves that the deleted genes act as master regulators specifically activated by infectious stress.
+    - Regulatory failure: The DKO mice fail to replicate the transcriptional program of the wild-type.
+    - Increased vulnerability: This massive divergence (affecting approximately 60% of the overall infection response) suggests that the DKO mutant is unable to coordinate the necessary signaling pathways (such as pro-inflammatory cytokines or intracellular effector mechanisms) required to control *T. gondii* proliferation.
+
 **Question 3 :** Selection of three genes and investigate their
 expression level
 
@@ -422,66 +430,45 @@ Below is a selection of three genes of interest and how their expression
 levels varied according to observations made in [Singhania et al.,
 2019](https://doi.org/10.1038/s41467-019-10601-6):
 
-1.  Mx1 (Myxovirus Resistance 1)
-
-This gene is a classical marker of the Type I IFN response. Mx1 clearly
-demonstrates that IFN-γ is indispensable for activating a gene typically
-considered to be under exclusive Type I IFN control in this context.
-
-2.  Ifit1 (Interferon-Induced Protein with Tetratricopeptide Repeats 1)
-
-Ifit1 (along with related genes Ifit3, Oas1a, etc.) belongs to the same
-L5 module as Mx1 and follows an identical expression pattern. Its
-mention in the section on tonic activity is particularly relevant. Its
-expression was already slightly lower in uninfected Ifnar⁻/⁻ mice
-compared to uninfected wild-type mice, demonstrating that basal Type I
-IFN activity exists constitutively in healthy lung tissue.
-
-3.  Tap1 (Transporter Associated with Antigen Processing 1)
-
-This gene belongs to the L7 module (IFN-γ) and is essential for antigen
-presentation, a key immune process. Tap1 serves as a control for the
-IFN-γ pathway. Its expression was only affected by the absence of its
-cognate receptor (Ifngr⁻/⁻), confirming the independence of the L7
-pathway from the Type I IFN pathway. Additionally, it also exhibited
-tonic activity (reduced baseline expression in uninfected Ifngr⁻/⁻
-mice), demonstrating the basal vigilance of the IFN-γ pathway.
+- *Mx1* (Myxovirus Resistance 1): A classical marker of the Type I IFN response, this gene demonstrates that IFN-γ is indispensable for activating genes normally considered to be under the exclusive control of Type I IFN in the context of T. gondii infection.
+- *Ifit1* (Interferon-Induced Protein with Tetratricopeptide Repeats 1): A member of the Type I IFN response, it follows the same expression profile as *Mx1*. Its reduced basal expression in uninfected Ifnar⁻/⁻ mice reveals a constitutive tonic activity (basal vigilance) of Type I IFN in healthy lung tissue.
+- *Tap1* (Transporter Associated with Antigen Processing 1): A gene essential for antigen presentation, it serves as a control for the IFN-γ pathway. Its expression is independent of the Type I IFN pathway, but it exhibits a basal tonic activity dependent on IFN-γ, confirming constant immune vigilance even in the absence of infection.
 
 <img src="./imgs/image_3.png" height="650" width="1500"/>
 
 Fig. 8 : Differential expression patterns of Mx1, Ifit1, and Tap1 genes
 upon infection in Wild-type versus Double Knockout mice
 
-Figure 8 illustrates the expression patterns of the three selected genes
-(*Mx1*, *Ifit1*, and *Tap1*) across experimental conditions and
-genotypes. In wild-type mice, infection is associated with a clear
-increase in gene expression compared to control samples for all three
-genes. In contrast, within the double-knockout group, gene expression
-remains largely unchanged or is reduced in infected samples, with a
-decrease observed for two out of the three genes.
+Figure 8 illustrates the expression patterns of three key interferon-stimulated genes (*Mx1*, *Ifit1*, and *Tap1*) across experimental conditions and genotypes.
 
-Overall, this pattern suggests that the induction of these
-interferon-responsive genes upon infection depends on intact type I and
-type II interferon signaling pathways, which are disrupted in the
-IFNGR/IFNAR double-knockout mice.
+In wild-type (WT) mice, *T. gondii* infection triggers a robust and significant induction of all three genes compared to control samples, reflecting a successful activation of the host immune response.
+
+In stark contrast, the double-knockout (DKO) group reveals two critical defects:
+
+-  Reduced Basal Expression: Even in control conditions, DKO mice exhibit significantly lower expression levels of these genes compared to WT controls. This confirms that intact interferon signaling is required for the "basal tonic activity" or immune vigilance necessary for lung tissue homeostasis.
+-  Failure of Induction: Upon infection, the DKO mice fail to upregulate these genes. Instead, expression levels remain largely stagnant (*Ifit1*) or show a slight downward trend (*Mx1* and *Tap1*), highlighting a complete collapse of the interferon-dependent transcriptional program.
+
+Overall, these patterns demonstrate that the transcriptional induction of these genes during infection is strictly dependent on both Type I (IFNAR) and Type II (IFNGR) interferon signaling pathways. The loss of these receptors in DKO mice not only prevents a response to the parasite but also compromises the pre-existing baseline of immune readiness.
 
 ### **Overrepresentation analysis**
 
 Question 1 : What are the top GO terms detected in the
 overrepresentation analysis ?
 
-The top GO terms detected in the overrepresentation analysis are mainly
-related to immune responses, including:
+Based on the Gene Ontology (GO) overrepresentation analysis, here is a detailed breakdown of the biological processes most affected by the infection and the mutation.
 
--   adaptive and innate immune responses,
--   defense responses to bacteria and viruses,
--   leukocyte activation, proliferation and migration,
--   interferon-mediated signaling pathways.
-
-These enrichments highlight both infection-induced immune activation in
-wild-type mice and profound immune dysregulation caused by the double
-knockout, particularly affecting interferon and innate immunity
-pathways.
+- Global Immune Response (Innate and Adaptive)
+    - In wild-type mice (WT control vs WT case), infection predominantly triggers the adaptive immune response and leukocyte mediated immunity.
+    - The WT case vs DKO case comparison highlights a failure in the regulation of innate immune responses, showing that the DKO genotype cannot properly coordinate early defense signals.
+- Pathogen Defense Mechanisms
+    - Terms like "defense response to bacterium" and "defense response to virus" are enriched across the board.
+    - This confirms that while the infection is recognized as a threat, the DKO mice lack the specific "antiviral-like" machinery required to contain *T. gondii*.
+- Leukocyte Dynamics (Activation and Migration)
+    - Leukocyte proliferation and mononuclear cell proliferation are top terms in infected wild-type mice.
+    - In the infected mutant (WT control vs DKO case), there is a strong enrichment in chemotaxis and leukocyte migration. This implies that immune cells are signaling to move, but the overall protective response is disrupted.
+- Interferon-Mediated Signaling Pathways (The Core Defect)
+    - This is the most critical finding. The WT case vs DKO case comparison isolates "response to type II interferon" and "response to interferon-beta" as the most significant terms.
+    - This confirms that the DKO mice suffer from a complete collapse of interferon signaling, providing the functional explanation for the lack of induction in genes such as *Mx1*, *Ifit1*, and *Tap1*.
 
 <img src="./imgs/image_4.png" height="650" width="1500"/>
 
@@ -490,41 +477,21 @@ Fig. 9 : The top 10 GO terms detected per pairwise comparisons
 Question 2 : Briefly discuss your results based on what you know about
 these samples, e.g. from the original publication.
 
-**Fig. 10A:** Infection induces strong coordinated transcriptional
-activation of interferon response and antigen presentation machinery,
-suggesting a robust and integrated immune response.
+The analysis of gene network architecture emphasizes the critical role of interferon (IFN) signaling in structuring the pulmonary response against *T. gondii*.
 
-**Fig. 10B:** In the absence of infection, the double knockout already
-exhibits baseline downregulation of interferon response genes and
-antigen presentation machinery, revealing constitutive tonic activity of
-these signaling pathways under normal conditions.
+Panel A: WT control vs WT case (Canonical Immune Signature)
+This panel illustrates the reference response in an immunocompetent host. We observe a robust induction of highly interconnected transcriptional hubs, primarily centered on antigen processing and presentation and the Type I interferon response. The strong predominance of up-regulated genes (high positive fold change), such as *Stat1*, *Irf7*, and MHC Class II components (*H2-Aa*, *H2-Ab1*), reflects a coordinated mobilization of effector pathways necessary for parasite control.
 
-**Fig. 10C:** Infection in double knockout mice induces a highly
-attenuated and disorganized transcriptional response compared to
-wild-type mice, suggesting that the absence of IFN signaling prevents
-the mounting of an effective immune response.
+Panel B: WT control vs DK control (Alteration of Basal Homeostasis)
+Examination of the basal state in IFNAR/IFNGR-/- mutants reveals a failure in immune vigilance. Although the network is limited, the significant down-regulation of several Interferon-Stimulated Genes (ISGs), such as *Mx2*, *Isg15*, and *Oas1g*, confirms the loss of constitutive tonic activity as described by Singhania et al. This signature demonstrates that interferon receptor integrity is required to maintain immune readiness within the lung parenchyma.
 
-**Fig. 10D:** This comparison demonstrates the dramatic impact of absent
-IFN signaling during infection: infected DKO mice fail to induce the
-defense transcriptional programs observed in infected wild-type mice.
-Nearly all interferon response and antigen presentation genes are
-repressed.
+Panel C: WT control vs DKO case (Defective Adaptive Response)
+In response to infection, the DKO mutant exhibits an attenuated transcriptomic response. While an antigen presentation hub emerges, its connectivity is markedly reduced compared to the wild-type. Gene activation is suboptimal (low signal intensity), suggesting that although the pathogen is detected via IFN-independent pathways, the absence of master regulators prevents the deployment of a protective effector response.
 
-Main conclusions :
+Panel D: WT case vs DKO case (Genotypic Divergence Under Stress)
+This direct comparison identifies the mutant's major regulatory failure. Nearly all genes constituting the interferon and antigen presentation hubs are significantly under-expressed compared to the infected wild-type. This panel maps the functional collapse of the immune network: the inability to induce pivotal genes such as *Stat1*, *Tap1*, or *Mx1* renders antigen presentation and antiparasitic activity ineffective.
 
-1.  *T. gondii* infection requires a robust IFN response (A) that is
-    completely dependent on both IFNAR and IFNGR signaling (D)
-2.  Constitutive tonic activity: even in the absence of infection, IFN
-    pathways maintain baseline expression of defense genes (B)
-3.  Failure of compensation: in the absence of both IFN signaling
-    pathways, infection cannot induce an effective compensatory response
-    (C)
-4.  Obligatory synergy: comparison D demonstrates that protective
-    transcriptional programs require both types of IFN—neither can
-    compensate for the absence of the other
-5.  Functional coupling: interferon response and antigen presentation
-    are inextricably linked, forming an integrated defense module
-    against intracellular pathogens
+**Synthesis:** The combined IFNAR/IFNGR mutation does not merely result in the absence of a signaling pathway; it causes a systemic paralysis of gene networks dedicated to adaptive and innate immunity, leaving the host defenseless against *T. gondii* proliferation.
 
 <img src="./imgs/image_5.png" height="650" width="1500"/>
 
