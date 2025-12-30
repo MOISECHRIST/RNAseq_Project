@@ -477,21 +477,23 @@ Fig. 9 : The top 10 GO terms detected per pairwise comparisons
 Question 2 : Briefly discuss your results based on what you know about
 these samples, e.g. from the original publication.
 
-The analysis of gene network architecture emphasizes the critical role of interferon (IFN) signaling in structuring the pulmonary response against *T. gondii*.
+Figure 10 displays the gene-concept networks (Cnetplots) visualizing the interactions between differentially expressed genes (DEGs) and enriched biological processes across the four pairwise comparisons.
 
-Panel A: WT control vs WT case (Canonical Immune Signature)
-This panel illustrates the reference response in an immunocompetent host. We observe a robust induction of highly interconnected transcriptional hubs, primarily centered on antigen processing and presentation and the Type I interferon response. The strong predominance of up-regulated genes (high positive fold change), such as *Stat1*, *Irf7*, and MHC Class II components (*H2-Aa*, *H2-Ab1*), reflects a coordinated mobilization of effector pathways necessary for parasite control.
+**A. WT control vs WT case Comparison** 
 
-Panel B: WT control vs DK control (Alteration of Basal Homeostasis)
-Examination of the basal state in IFNAR/IFNGR-/- mutants reveals a failure in immune vigilance. Although the network is limited, the significant down-regulation of several Interferon-Stimulated Genes (ISGs), such as *Mx2*, *Isg15*, and *Oas1g*, confirms the loss of constitutive tonic activity as described by Singhania et al. This signature demonstrates that interferon receptor integrity is required to maintain immune readiness within the lung parenchyma.
+In the infected wild-type lung, the network is structured around two highly dense and interconnected central hubs: antigen processing and presentation and the response to type I interferon. The majority of associated genes, including *Stat1*, *Irf7*, *Mx1*, and MHC class II molecules (*H2-Aa*, *H2-Ab1*, *H2-Eb1*), exhibit high positive fold changes, illustrated by intense dark blue coloring.
 
-Panel C: WT control vs DKO case (Defective Adaptive Response)
-In response to infection, the DKO mutant exhibits an attenuated transcriptomic response. While an antigen presentation hub emerges, its connectivity is markedly reduced compared to the wild-type. Gene activation is suboptimal (low signal intensity), suggesting that although the pathogen is detected via IFN-independent pathways, the absence of master regulators prevents the deployment of a protective effector response.
+**B. WT control vs DK control Comparison** 
 
-Panel D: WT case vs DKO case (Genotypic Divergence Under Stress)
-This direct comparison identifies the mutant's major regulatory failure. Nearly all genes constituting the interferon and antigen presentation hubs are significantly under-expressed compared to the infected wild-type. This panel maps the functional collapse of the immune network: the inability to induce pivotal genes such as *Stat1*, *Tap1*, or *Mx1* renders antigen presentation and antiparasitic activity ineffective.
+At the basal state, the network is markedly smaller with low connectivity. Several genes related to interferon signaling (*Mx2*, *Isg15*, *Ifit1*) are colored red, indicating significantly lower expression levels in the double-knockout (DKO) mutant compared to the wild-type control in the absence of infection.
 
-**Synthesis:** The combined IFNAR/IFNGR mutation does not merely result in the absence of a signaling pathway; it causes a systemic paralysis of gene networks dedicated to adaptive and innate immunity, leaving the host defenseless against *T. gondii* proliferation.
+**C. WT control vs DKO case Comparison** 
+
+Upon infection of the mutant mice, an antigen presentation hub is identified, but it exhibits lower gene density and connectivity than that observed in the wild-type. The genes are predominantly colored light or pale blue, reflecting an induction of lower magnitude.
+
+**D. WT case vs DKO case Comparison**
+
+The direct comparison between the two infected genotypes shows that the interferon response and antigen presentation hubs consist almost exclusively of under-expressed genes (red coloring) in the DKO mutant. Pivotal effectors such as *Stat1*, *Tap1*, *Oas1a*, and the entire set of major histocompatibility complex (MHC) genes display significantly lower expression levels than those of the infected wild-type.
 
 <img src="./imgs/image_5.png" height="650" width="1500"/>
 
