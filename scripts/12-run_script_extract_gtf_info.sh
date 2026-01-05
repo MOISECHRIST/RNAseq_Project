@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script will run 11-extract_gene_info_from_gtf.R
 ## Creation date : 13-11-2025
-## Last Update : 13-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 

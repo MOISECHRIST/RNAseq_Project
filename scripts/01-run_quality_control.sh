@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the quality control for each sample 
 ## Creation date : 03-11-2025
-## Last Update : 04-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 

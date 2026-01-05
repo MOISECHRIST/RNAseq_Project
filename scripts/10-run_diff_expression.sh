@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script will combine all featureCounts results files for differential expression analysis
 ## Creation date : 12-11-2025
-## Last Update : 13-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 

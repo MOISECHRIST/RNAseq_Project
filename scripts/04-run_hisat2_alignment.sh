@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the sample alignment with HISAT2
 ## Creation date : 07-11-2025
-## Last Update : 07-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 

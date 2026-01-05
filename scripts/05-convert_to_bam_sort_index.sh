@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will convert SAM files into BAM files, sort and index the BAM files
 ## Creation date : 07-11-2025
-## Last Update : 09-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 

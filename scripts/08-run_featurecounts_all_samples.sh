@@ -5,7 +5,7 @@
 ## Email : moise.meka@students.unibe.ch
 ## Description : This bash script I will run the feature counts for all sample
 ## Creation date : 11-11-2025
-## Last Update : 20-11-2025
+## Last Update : 05-01-2026
 ##------------------------------------------------------------------------
 
 
