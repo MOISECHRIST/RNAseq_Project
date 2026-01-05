@@ -16,14 +16,14 @@
 #SBATCH --mem=150GB
 #SBATCH --cpus-per-task=16
 #SBATCH --time=20:00:00
-#SBATCH --error=/data/users/mmeka/RNAseq_project/.log/errors/%x_%j.err
-#SBATCH --output=/data/users/mmeka/RNAseq_project/.log/output/%x_%j.out
+#SBATCH --error=/data/users/%u/RNAseq_project/.log/errors/%x_%j.err
+#SBATCH --output=/data/users/%u/RNAseq_project/.log/output/%x_%j.out
 #SBATCH --array=0-14
 
 THREADS=$SLURM_CPUS_PER_TASK
 
 #Loading the config file
-source /data/users/mmeka/RNAseq_project/scripts/00-configs.sh
+source /data/users/{$USER}/RNAseq_project/scripts/00-configs.sh
 
 #First, create an output folder for the analyzed sample 
 mkdir -p "${RESULTS_DIR}/${SAMPLE_ID_LIST[${SLURM_ARRAY_TASK_ID}]}/hisat2"
