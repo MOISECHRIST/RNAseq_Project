@@ -9,7 +9,7 @@
 ##              -> Extract and analyse DE results,
 ##              -> Overrepresentation analysis.
 ## Creation date : 20-11-2025
-## Last Update : 31-12-2025
+## Last Update : 09-01-2026
 ##------------------------------------------------------------------------
 
 ##------------------------------------------------------------------------
@@ -35,20 +35,19 @@ if(sum(c(file.exists(DIFF_EXP_MODEL_PATH), file.exists(GENE_DETAIL_PATH)))!=2){
 ##------------------------------------------------------------------------
 ## Step 2 : Import libraries 
 ##------------------------------------------------------------------------
-library(conflicted)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
 library("DESeq2")
 library("clusterProfiler")
 library(org.Mm.eg.db)
 library("vsn")
 library("pheatmap")
-library(ggplot2)
-library(ggrepel)
 library(cowplot)
 library("RColorBrewer")
 library(enrichplot)
 library(patchwork)
-library(tidyr)
-library(dplyr)
 
 ##------------------------------------------------------------------------
 ## Step 3 : Load data
@@ -165,26 +164,56 @@ plot_grid(plotlist = select_plots, nrow = 3)
 dev.off()
 
 
+DE_processiong <- function(res, gene_id_list){
+  ## In this function we will perform a standard processing 
+  ## on a differential gene expression analysis :
+  ##  -> Filter only gene with known gene name
+  ##  -> Remove all NA rows 
+  ##  -> Return only differential expressed genes (padj < 0.05 and |log2FC|>1)
+
+  #Filter only gene id with known gene name 
+  res <- res[gene_id_list,]
+
+  ## Check the proportion of missing values (NA) in results
+  cat("--- NA % Before Filtering ---\n")
+  print(100*colSums(is.na(res))/nrow(res))
+
+  ## Filter of row with NA values
+  res<- res[!is.na(res$padj),]
+
+  ## Check again the proportion of missing values (NA) in results
+  cat("--- NA % After Filtering ---\n")
+  print(100*colSums(is.na(res))/nrow(res))
+
+  ## Store all genes ID
+  all_genes <- rownames(res)
+
+  ## Filter differentially expressed gene (DE) (padj < 0.05 and |log2FC|>1) 
+  res <- subset(res, padj< 0.05 & abs(log2FoldChange)>1 )
+
+  ## return the result
+  return(
+    list(res=res,
+    all_genes=all_genes)
+  )
+}
+
+good_gene_id_list <- gene.detail[!is.na(gene.detail$gene_name),"gene_id"]
+
 # Contrast 1 : 
 # Answer to the question : Which genes respond to T. gondii infection in wild-type mice?
 res_WT_control_case <- results(dds, contrast = c("condition", "Case", "Control"))
-res_WT_control_case <- res_WT_control_case[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
-## Check the proportion of missing values (NA) in results
-100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
+## Clean the DE results
+tmp <- DE_processiong(res_WT_control_case, good_gene_id_list)
 
-## Filter of row with NA values
-res_WT_control_case <- res_WT_control_case[!is.na(res_WT_control_case$padj),]
-
-## Check again the proportion of missing values (NA) in results
-100*colSums(is.na(res_WT_control_case))/nrow(res_WT_control_case)
+## Store DE cleanned result
+res_WT_control_case <- tmp[["res"]]
 
 ## Store all genes ID
-WT_control_case_all_genes <- rownames(res_WT_control_case)
+WT_control_case_all_genes <- tmp[["all_genes"]]
 
-## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
-res_WT_control_case <- subset(res_WT_control_case, padj< 0.05 & abs(log2FoldChange)>1 )
-
+## How many genes are differentially expressed (DE)
 WT_control_case_DE <- rownames(res_WT_control_case)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
@@ -202,23 +231,17 @@ res_WT_control_case[gene_id,]
 # Contrast 2 : 
 # Answer to the question : Which genes are different between DKO and WT in the absence of infection ?
 res_control_WT_DK <- results(dds, name = "batch_Double_Knockout_vs_Wildtype")
-res_control_WT_DK <- res_control_WT_DK[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
-## Check the proportion of missing values (NA) in results
-100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
+## Clean the DE results
+tmp <- DE_processiong(res_control_WT_DK, good_gene_id_list)
 
-## Filter of row with NA values
-res_control_WT_DK <- res_control_WT_DK[!is.na(res_control_WT_DK$padj),]
-
-## Check again the proportion of missing values (NA) in results
-100*colSums(is.na(res_control_WT_DK))/nrow(res_control_WT_DK)
+## Store DE cleanned result
+res_control_WT_DK <- tmp[["res"]]
 
 ## Store all genes ID
-control_WT_DK_all_genes <- rownames(res_control_WT_DK)
+control_WT_DK_all_genes <- tmp[["all_genes"]]
 
-## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
-res_control_WT_DK <- subset(res_control_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
-
+## How many genes are differentially expressed (DE) ?
 control_WT_DK_DE <- rownames(res_control_WT_DK)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
@@ -238,23 +261,17 @@ res_WT_control_DK_case <- results(dds,
                                   contrast=list(c("batch_Double_Knockout_vs_Wildtype",
                                     "batchDouble_Knockout.conditionCase",
                                     "condition_Case_vs_Control")))
-res_WT_control_DK_case <- res_WT_control_DK_case[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
-## Check the proportion of missing values (NA) in results
-100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
+## Clean the DE results
+tmp <- DE_processiong(res_WT_control_DK_case, good_gene_id_list)
 
-## Filter of row with NA values
-res_WT_control_DK_case <- res_WT_control_DK_case[!is.na(res_WT_control_DK_case$padj),]
-
-## Check again the proportion of missing values (NA) in results
-100*colSums(is.na(res_WT_control_DK_case))/nrow(res_WT_control_DK_case)
+## Store DE cleanned result
+res_WT_control_DK_case <- tmp[["res"]]
 
 ## Store all genes ID
-WT_control_DK_case_all_genes <- rownames(res_WT_control_DK_case)
+WT_control_DK_case_all_genes <- tmp[["all_genes"]]
 
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
-res_WT_control_DK_case <- subset(res_WT_control_DK_case, padj< 0.05 & abs(log2FoldChange)>1)
-
 WT_control_DK_case_DE <- rownames(res_WT_control_DK_case)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
@@ -273,23 +290,17 @@ res_WT_control_DK_case[gene_id,]
 res_case_WT_DK <- results(dds, contrast=list(c(
     "batch_Double_Knockout_vs_Wildtype",
     "batchDouble_Knockout.conditionCase")))
-res_case_WT_DK <- res_case_WT_DK[gene.detail[!is.na(gene.detail$gene_name),"gene_id"],]
 
-## Check the proportion of missing values (NA) in results
-100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
+## Clean the DE results
+tmp <- DE_processiong(res_case_WT_DK, good_gene_id_list)
 
-## Filter of row with NA values
-res_case_WT_DK <- res_case_WT_DK[!is.na(res_case_WT_DK$padj),]
-
-## Check again the proportion of missing values (NA) in results
-100*colSums(is.na(res_case_WT_DK))/nrow(res_case_WT_DK)
+## Store DE cleanned result
+res_case_WT_DK <- tmp[["res"]]
 
 ## Store all genes ID
-case_WT_DK_all_genes <- rownames(res_case_WT_DK)
+case_WT_DK_all_genes <- tmp[["all_genes"]]
 
 ## How many genes are differentially expressed (DE) (padj < 0.05 and |log2FC|>1) 
-res_case_WT_DK <- subset(res_case_WT_DK, padj< 0.05 & abs(log2FoldChange)>1)
-
 case_WT_DK_DE <- rownames(res_case_WT_DK)
 
 ## How many of the DE genes are up-regulated vs down-regulated?
@@ -377,13 +388,15 @@ GO_module_L5 <- "response to type I interferon"
 
 GO_module_L7 <- "antigen processing and presentation"
 
+## Number of GO term displayed in p#
+top <- 10
+
 # Contrast 1 :
 ## Run overrepresentation analysis
 ego_WT_control_case <- enrichGO(gene = WT_control_case_DE, OrgDb = org.Mm.eg.db, 
                                 keyType = "ENSEMBL", ont="BP", readable=TRUE,
                                 pvalueCutoff  = 0.01,qvalueCutoff  = 0.05, universe = WT_control_case_all_genes)
 
-top <- 10
 ## Plot the top 10 GO terms detected in the overrepresentation analysis
 p1 <- dotplot(ego_WT_control_case, showCategory=top, font.size=8)+ 
   ggtitle("WT control vs WT case")
