@@ -50,19 +50,26 @@ cd /data/user/${USER}/RNAseq_Project
 
 ### Run analysis
 
--   Step 1 : in the IBU's HPC
+-   Step 1 : in the IBU HPC (run script 01 to 12)
 
 ``` bash
 chmod u+x main.sh
 ./main.sh
 ```
 
--   Step 2 : R data analysis (your computer)
+-   Step 2 : R data analysis (run script 13)
 
 ``` bash
-Rscript ./scripts/13-Run_R_data_analysis.R $PWD
+## Move to your repository and create folter results to store the next analysis results 
+cd /path/to/RNAseq_Project
+mkdir results
 
-##NOTE : Make sure you have copied the folder 'results/summary' from the cluster to your working directory.
+## Copy results from your IBU HPC user acount to your computer 
+## NB : Replace 'username' by your username 
+scp -r username@login8.hpc.binf.unibe.ch:/data/users/username/RNAseq_Project/results/summary results/.
+
+#Then run the R data analysis script
+Rscript ./scripts/13-Run_R_data_analysis.R $PWD
 ```
 
 ## Requirements
